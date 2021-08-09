@@ -1,4 +1,8 @@
-import { initialTemplate, sectionTemplate } from "../../templates";
+import {
+  initialTemplate,
+  sectionTemplate,
+  slotTemplate,
+} from "../../templates";
 
 import {
   COURSE_NAME_CHANGE,
@@ -8,6 +12,8 @@ import {
   UPDATE_LECTURE_NAME,
   UPDATE_LECTURE_SLOT,
   UPDATE_LECTURE_PROFESSOR,
+  DELETE_LECTURE_SLOT,
+  ADD_LECTURE_SLOT,
 } from "../types/coursesTypes";
 
 const initialState = {
@@ -113,9 +119,37 @@ const reducer = (state = initialState, action) => {
     }
 
     case UPDATE_LECTURE_PROFESSOR: {
+      // Changing professor name
       newCourses[payload.courseIndex].body[
         payload.sectionIndex
       ].lecture.professor = payload.professor;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case DELETE_LECTURE_SLOT: {
+      // Deleting slot
+      const newSlots = newCourses[payload.courseIndex].body[
+        payload.sectionIndex
+      ].lecture.slots.filter((slot, index) => index !== payload.slotIndex);
+      console.log(newSlots);
+      newCourses[payload.courseIndex].body[payload.sectionIndex].lecture.slots =
+        newSlots;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case ADD_LECTURE_SLOT: {
+      // Adding slot
+      newCourses[payload.courseIndex].body[
+        payload.sectionIndex
+      ].lecture.slots.push(slotTemplate);
 
       return {
         ...state,

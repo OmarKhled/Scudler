@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { FaTrash } from "react-icons/fa";
 import _ from "lodash";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateLectureSlot } from "../redux/courses/coursesActions";
+import {
+  updateLectureSlot,
+  deleteLectureSlot,
+} from "../redux/courses/coursesActions";
 
 const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
   const dispatch = useDispatch();
@@ -23,6 +27,11 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
   const onSetFrom = (e) => {
     setFrom(e.target.value !== "from" ? Number(e.target.value) : "from");
   };
+
+  const onDelete = () => {
+    dispatch(deleteLectureSlot(sectionIndex, courseIndex, slotIndex));
+  };
+
   useEffect(() => {
     if (from >= to) {
       setTo(from < 7 ? from + 1 : from);
@@ -58,6 +67,13 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
 
     // eslint-disable-next-line
   }, [day, from, to]);
+
+  useEffect(() => {
+    setDay(slotDay);
+    setFrom(slot);
+    setTo(slot);
+  }, [slots]);
+
   return (
     <div className="d-flex my-2 gap-4">
       <Form.Select
@@ -116,6 +132,11 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
           3:30 PM
         </option>
       </Form.Select>
+      {slotIndex > 0 && (
+        <Button variant="danger" onClick={onDelete}>
+          <FaTrash />
+        </Button>
+      )}
     </div>
   );
 };

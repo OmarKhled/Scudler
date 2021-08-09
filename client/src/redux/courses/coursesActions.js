@@ -6,6 +6,8 @@ import {
   UPDATE_LECTURE_NAME,
   UPDATE_LECTURE_SLOT,
   UPDATE_LECTURE_PROFESSOR,
+  DELETE_LECTURE_SLOT,
+  ADD_LECTURE_SLOT,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -65,3 +67,18 @@ export const updateLectureProfessor =
       payload: { sectionIndex, courseIndex, professor },
     });
   };
+
+export const deleteLectureSlot =
+  (sectionIndex, courseIndex, slotIndex) => (dispatch) => {
+    dispatch({
+      type: DELETE_LECTURE_SLOT,
+      payload: { sectionIndex, courseIndex, slotIndex },
+    });
+  };
+
+export const addLectureSlot = (sectionIndex, courseIndex) => (dispatch) => {
+  dispatch({
+    type: ADD_LECTURE_SLOT,
+    payload: { sectionIndex, courseIndex },
+  });
+};

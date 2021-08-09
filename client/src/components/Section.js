@@ -5,6 +5,7 @@ import { InputGroup, FormControl, Row, Col } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addLectureSlot,
   deleteSection,
   sectionNumberChange,
   updateLectureName,
@@ -50,6 +51,10 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
 
   const professorChange = (e) => {
     dispatch(updateLectureProfessor(sectionIndex, courseIndex, e.target.value));
+  }
+
+  const onAddSlot = () => {
+    dispatch(addLectureSlot(sectionIndex, courseIndex));
   }
 
   useEffect(() => {
@@ -125,12 +130,14 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
       </Row>
 
       {/* Slots */}
+      <h4 className="mb-3">Lecture slots</h4>
       {lecture.slots.map((slot, index) => (
         <Slot
           key={index}
           {...{ courseIndex, sectionIndex, slotIndex: index }}
         />
       ))}
+      <button className="link" onClick={onAddSlot}>Add another slot?</button>
     </Fragment>
   );
 };
