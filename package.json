@@ -10,7 +10,8 @@
     "client": "npm start --prefix client",
     "clientBuild": "npm run build --prefix client",
     "clientInstall": "npm i --prefix client",
-    "dev": "concurrently \" npm run server \" \" npm run client \""
+    "dev": "concurrently \" npm run server \" \" npm run client \"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false CI=false npm run clientInstall && npm run build --prefix client"
   },
   "author": "Omar Khaled",
   "license": "MIT",
