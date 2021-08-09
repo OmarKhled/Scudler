@@ -3,6 +3,7 @@ import {
   ADD_NEW_SECTION,
   DELETE_SECTION,
   SECTION_NUMBER_CHANGE,
+  UPDATE_LECTURE_NAME,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -35,5 +36,13 @@ export const sectionNumberChange =
     dispatch({
       type: SECTION_NUMBER_CHANGE,
       payload: { sectionIndex, courseIndex, sectionNumber },
+    });
+  };
+
+export const updateLectureName =
+  (sectionIndex, courseIndex, lectureName) => (dispatch) => {
+    dispatch({
+      type: UPDATE_LECTURE_NAME,
+      payload: { sectionIndex, courseIndex, lectureName },
     });
   };

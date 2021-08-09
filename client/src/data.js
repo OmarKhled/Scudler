@@ -5,15 +5,17 @@ export const initialTemplate = [
       {
         sectionNumber: 1,
         lecture: {
+          lectureName: "",
           slots: [
             {
-              day: "2",
+              day: 2,
               slot: [0, 1],
             },
           ],
         },
         tutorial: [
           {
+            tutorialName: "",
             slots: [
               {
                 day: 3,
@@ -22,10 +24,11 @@ export const initialTemplate = [
             ],
           },
           {
+            tutorialName: "",
             slots: [
               {
-                day: 3,
-                slot: [0, 1],
+                day: 2,
+                slot: [0, 3],
               },
             ],
           },
@@ -38,9 +41,10 @@ export const initialTemplate = [
 export const sectionTemplate = {
   sectionNumber: 1,
   lecture: {
+    lectureName: "",
     slots: [
       {
-        day: "2",
+        day: 2,
         slot: [0, 1],
       },
     ],
