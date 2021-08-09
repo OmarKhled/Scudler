@@ -9,7 +9,7 @@ export const initialTemplate = [
           slots: [
             {
               day: 2,
-              slot: [0, 1],
+              slot: [0, 1, 2, 3],
             },
             {
               day: 1,

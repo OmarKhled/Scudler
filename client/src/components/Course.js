@@ -26,6 +26,7 @@ const Course = ({ body, courseName, courseIndex }) => {
           <small>Course name</small>
         </InputGroup.Text>
         <FormControl
+          name="Course name"
           value={courseName}
           onChange={onCourseNameChange}
           placeholder="Course name"

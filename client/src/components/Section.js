@@ -9,7 +9,7 @@ import {
   sectionNumberChange,
   updateLectureName,
 } from "../redux/courses/coursesActions";
-import Slots from "./Slots";
+import Slot from "./Slot";
 
 const Section = ({ section, sectionIndex, courseIndex }) => {
   const dispatch = useDispatch();
@@ -108,11 +108,12 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
       </InputGroup>
 
       {/* Slots */}
-      {
-        lecture.slots.map((slot, index) => (
-          <Slots key={index} { ...{ courseIndex, sectionIndex, slotIndex: index } } />
-        ))
-      }
+      {lecture.slots.map((slot, index) => (
+        <Slot
+          key={index}
+          {...{ courseIndex, sectionIndex, slotIndex: index }}
+        />
+      ))}
     </Fragment>
   );
 };
