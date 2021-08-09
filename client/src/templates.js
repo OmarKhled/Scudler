@@ -11,6 +11,10 @@ export const initialTemplate = [
               day: 2,
               slot: [0, 1],
             },
+            {
+              day: 1,
+              slot: [3, 4],
+            },
           ],
         },
         tutorial: [
