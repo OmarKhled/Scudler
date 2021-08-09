@@ -6,6 +6,7 @@ export const initialTemplate = [
         sectionNumber: 1,
         lecture: {
           lectureName: "",
+          professor: "Yasser",
           slots: [
             {
               day: 2,
@@ -20,6 +21,7 @@ export const initialTemplate = [
         tutorial: [
           {
             tutorialName: "",
+            ta: "",
             slots: [
               {
                 day: 3,
@@ -29,6 +31,7 @@ export const initialTemplate = [
           },
           {
             tutorialName: "",
+            ta: "",
             slots: [
               {
                 day: 2,
@@ -46,6 +49,7 @@ export const sectionTemplate = {
   sectionNumber: 1,
   lecture: {
     lectureName: "",
+    professor: "",
     slots: [
       {
         day: 2,

@@ -86,7 +86,6 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
         <option value="4">12:30 PM</option>
         <option value="5">1:30 PM</option>
         <option value="6">2:30 PM</option>
-        <option value="7">3:30 PM</option>
       </Form.Select>
       <Form.Select value={to} onChange={(e) => onSetTo(e)}>
         <option disabled value="to">

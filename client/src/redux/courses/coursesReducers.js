@@ -7,6 +7,7 @@ import {
   SECTION_NUMBER_CHANGE,
   UPDATE_LECTURE_NAME,
   UPDATE_LECTURE_SLOT,
+  UPDATE_LECTURE_PROFESSOR,
 } from "../types/coursesTypes";
 
 const initialState = {
@@ -104,6 +105,17 @@ const reducer = (state = initialState, action) => {
       newCourses[payload.courseIndex].body[
         payload.sectionIndex
       ].lecture.lectureName = payload.lectureName;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case UPDATE_LECTURE_PROFESSOR: {
+      newCourses[payload.courseIndex].body[
+        payload.sectionIndex
+      ].lecture.professor = payload.professor;
 
       return {
         ...state,

@@ -5,6 +5,7 @@ import {
   SECTION_NUMBER_CHANGE,
   UPDATE_LECTURE_NAME,
   UPDATE_LECTURE_SLOT,
+  UPDATE_LECTURE_PROFESSOR,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -54,5 +55,13 @@ export const updateLectureSlot =
     dispatch({
       type: UPDATE_LECTURE_SLOT,
       payload: { sectionIndex, courseIndex, slotIndex, slot },
+    });
+  };
+
+export const updateLectureProfessor =
+  (sectionIndex, courseIndex, professor) => (dispatch) => {
+    dispatch({
+      type: UPDATE_LECTURE_PROFESSOR,
+      payload: { sectionIndex, courseIndex, professor },
     });
   };

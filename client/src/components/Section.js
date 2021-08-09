@@ -1,13 +1,14 @@
 import { Fragment, useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
-import { InputGroup, FormControl } from "react-bootstrap";
+import { InputGroup, FormControl, Row, Col } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteSection,
   sectionNumberChange,
   updateLectureName,
+  updateLectureProfessor
 } from "../redux/courses/coursesActions";
 import Slot from "./Slot";
 
@@ -46,6 +47,10 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
       setEdit(!edit);
     }
   };
+
+  const professorChange = (e) => {
+    dispatch(updateLectureProfessor(sectionIndex, courseIndex, e.target.value));
+  }
 
   useEffect(() => {
     setLectureName(`${courseName} Lecture - Section ${sectionNumber}`);
@@ -95,17 +100,29 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
       <hr />
 
       {/* Lecture */}
-      <InputGroup className="my-3">
-        <InputGroup.Text>
-          <small>Lecture Name</small>
-        </InputGroup.Text>
-        <FormControl
-          readOnly
-          value={lectureName}
-          aria-label="Lecture Name"
-          // disabled
-        />
-      </InputGroup>
+      <Row className="my-1">
+        <Col xs="12" md="6">
+          <InputGroup className="my-2">
+            <InputGroup.Text>
+              <small>Lecture Name</small>
+            </InputGroup.Text>
+            <FormControl
+              readOnly
+              value={lectureName}
+              aria-label="Lecture Name"
+              // disabled
+            />
+          </InputGroup>
+        </Col>
+        <Col>
+        <InputGroup className="my-2">
+          <InputGroup.Text>
+            <small>Professor</small>
+          </InputGroup.Text>
+          <FormControl name="professor" value={lecture.professor} onChange={professorChange} placeholder="Professor Name" />
+        </InputGroup>
+        </Col>
+      </Row>
 
       {/* Slots */}
       {lecture.slots.map((slot, index) => (
