@@ -25,6 +25,17 @@ const reducer = (state = initialState, action) => {
       };
     }
     case ADD_NEW_SECTION: {
+      let found = newCourses[payload.courseIndex].body.map(
+        (section) => section.sectionNumber == payload.newSectionNumber
+      );
+      console.log(found);
+      while (found.includes(true)) {
+        console.log(true);
+        payload.newSectionNumber++;
+        found = newCourses[payload.courseIndex].body.map(
+          (section) => section.sectionNumber == payload.sectionNumber
+        );
+      }
       const newSection = Object.assign({}, sectionTemplate);
       newSection.sectionNumber = payload.newSectionNumber;
 
@@ -47,17 +58,22 @@ const reducer = (state = initialState, action) => {
       };
     }
     case SECTION_NUMBER_CHANGE: {
-      const newSections = newCourses[payload.courseIndex].body.filter(
-        (section, index) => {
-          if (index !== payload.sectionIndex) {
-            return section;
-          } else {
-            section.sectionNumber = payload.sectionNumber;
-            return section;
-          }
-        }
+      const found = newCourses[payload.courseIndex].body.map(
+        (section) => section.sectionNumber == payload.sectionNumber
       );
-      newCourses[payload.courseIndex].body = newSections;
+      if (!found.includes(true)) {
+        const newSections = newCourses[payload.courseIndex].body.filter(
+          (section, index) => {
+            if (index !== payload.sectionIndex) {
+              return section;
+            } else {
+              section.sectionNumber = payload.sectionNumber;
+              return section;
+            }
+          }
+        );
+        newCourses[payload.courseIndex].body = newSections;
+      }
 
       return {
         ...state,
