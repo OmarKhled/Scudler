@@ -1,0 +1,28 @@
+{
+  "name": "scudler",
+  "version": "1.0.0",
+  "description": "A simple app to schedulee classes",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "clientBuild": "npm run build --prefix client",
+    "clientInstall": "npm i --prefix client",
+    "dev": "concurrently \" npm run server \" \" npm run client \""
+  },
+  "author": "Omar Khaled",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12"
+  }
+}
