@@ -1,4 +1,4 @@
-import { initialTemplate, sectionTemplate } from "../../data";
+import { initialTemplate, sectionTemplate } from "../../templates";
 
 import {
   COURSE_NAME_CHANGE,
@@ -7,7 +7,6 @@ import {
   SECTION_NUMBER_CHANGE,
   UPDATE_LECTURE_NAME,
 } from "../types/coursesTypes";
-import { updateLectureName } from "./coursesActions";
 
 const initialState = {
   courses: initialTemplate,
@@ -30,15 +29,12 @@ const reducer = (state = initialState, action) => {
 
     case ADD_NEW_SECTION: {
       // Checking if the new section number existed before
-      let found = newCourses[payload.courseIndex].body.map(
-        (section) => section.sectionNumber === payload.newSectionNumber
-      );
-      while (found.includes(true)) {
-        console.log(true);
+      while (
+        newCourses[payload.courseIndex].body
+          .map((section) => section.sectionNumber === payload.newSectionNumber)
+          .includes(true)
+      ) {
         payload.newSectionNumber++;
-        found = newCourses[payload.courseIndex].body.map(
-          (section) => section.sectionNumber === payload.sectionNumber
-        );
       }
       // Adding the new section
       const newSection = Object.assign({}, sectionTemplate);
@@ -95,8 +91,6 @@ const reducer = (state = initialState, action) => {
       newCourses[payload.courseIndex].body[
         payload.sectionIndex
       ].lecture.lectureName = payload.lectureName;
-
-      console.log(newCourses);
 
       return {
         ...state,

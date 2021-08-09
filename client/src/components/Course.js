@@ -4,10 +4,7 @@ import { Tabs, Tab, InputGroup, FormControl, Button } from "react-bootstrap";
 import Section from "./Section";
 
 import { useDispatch } from "react-redux";
-import {
-  courseNameChange,
-  addSection,
-} from "../redux/schedules/coursesActions";
+import { courseNameChange, addSection } from "../redux/courses/coursesActions";
 
 const Course = ({ body, courseName, courseIndex }) => {
   const dispatch = useDispatch();
@@ -18,7 +15,7 @@ const Course = ({ body, courseName, courseIndex }) => {
   };
 
   const onCourseNameChange = (e) => {
-    dispatch(courseNameChange(courseIndex, e.target.value));
+    dispatch(courseNameChange(courseIndex, e.target.value.toUpperCase()));
   };
 
   return (
@@ -33,7 +30,6 @@ const Course = ({ body, courseName, courseIndex }) => {
           onChange={onCourseNameChange}
           placeholder="Course name"
           aria-label="Course name"
-          style={{ textTransform: "uppercase" }}
         />
       </InputGroup>
 
@@ -50,10 +46,7 @@ const Course = ({ body, courseName, courseIndex }) => {
             eventKey={index}
             title={`Section ${section.sectionNumber}`}
           >
-            <Section
-              section={section}
-              {...{ sectionIndex: index, courseIndex }}
-            />
+            <Section {...{ section, sectionIndex: index, courseIndex }} />
           </Tab>
         ))}
       </Tabs>

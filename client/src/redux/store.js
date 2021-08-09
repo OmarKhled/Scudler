@@ -2,7 +2,7 @@ import { combineReducers, createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
-import coursesReducers from "./schedules/coursesReducers";
+import coursesReducers from "./courses/coursesReducers";
 
 const reducers = combineReducers({
   courses: coursesReducers,

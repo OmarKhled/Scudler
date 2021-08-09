@@ -8,8 +8,9 @@ import {
 import _ from "lodash";
 
 export const addSection = (courseIndex) => (dispatch, getState) => {
-  const newSectionNumber =
-    _.last(getState().courses.courses[courseIndex].body).sectionNumber + 1;
+  const newSectionNumber = getState().courses.courses[courseIndex].body[0]
+    ? _.last(getState().courses.courses[courseIndex].body).sectionNumber + 1
+    : 1;
 
   dispatch({
     type: ADD_NEW_SECTION,
