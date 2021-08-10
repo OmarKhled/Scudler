@@ -39,6 +39,13 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
       )
     );
   };
+
+  const onTaChange = (e) => {
+    // dispatch(
+    //   changeTutorialTa(sectionIndex, courseIndex, tutorialIndex, e.target.value)
+    // );
+  };
+
   useEffect(() => {
     dispatch(
       changeTutorialPrefix(
@@ -48,7 +55,9 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
         `${sectionNumber}A`
       )
     );
+    // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
     dispatch(
       changeTutorialName(
@@ -58,7 +67,20 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
         `${courseName} - Tutorial ${tutorialPrefix}`
       )
     );
+    // eslint-disable-next-line
   }, [tutorialPrefix, courseName]);
+
+  useEffect(() => {
+    console.log(sectionNumber);
+    dispatch(
+      changeTutorialPrefix(
+        sectionIndex,
+        courseIndex,
+        tutorialIndex,
+        `${sectionNumber}${tutorialPrefix !== "" ? tutorialPrefix[1] : "A"}`
+      )
+    );
+  }, [sectionNumber]);
 
   return (
     <div className="p-3 jumbutron-dark my-3">
@@ -84,12 +106,34 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
           </Button>
         </Col>
       </Row>
-      <InputGroup className="my-2">
-        <InputGroup.Text>
-          <small>Tutorial Name</small>
-        </InputGroup.Text>
-        <FormControl readOnly value={tutorialName} aria-label="Tutorial Name" />
-      </InputGroup>
+
+      <Row className="my-1">
+        <Col xs="12" sm="6">
+          <InputGroup className="my-2">
+            <InputGroup.Text>
+              <small>Tutorial Name</small>
+            </InputGroup.Text>
+            <FormControl
+              readOnly
+              value={tutorialName}
+              aria-label="Tutorial Name"
+            />
+          </InputGroup>
+        </Col>
+        <Col>
+          <InputGroup className="my-2">
+            <InputGroup.Text>
+              <small>TA</small>
+            </InputGroup.Text>
+            <FormControl
+              name="Ta"
+              value={ta}
+              onChange={onTaChange}
+              placeholder="TA Name"
+            />
+          </InputGroup>
+        </Col>
+      </Row>
     </div>
   );
 };

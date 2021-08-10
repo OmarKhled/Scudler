@@ -102,7 +102,7 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
 
       {/* Lecture */}
       <Row className="my-1">
-        <Col xs="12" md="6">
+        <Col xs="12" sm="6">
           <InputGroup className="my-2">
             <InputGroup.Text>
               <small>Lecture Name</small>
