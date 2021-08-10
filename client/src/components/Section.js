@@ -5,13 +5,13 @@ import { InputGroup, FormControl, Row, Col } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addLectureSlot,
   deleteSection,
   sectionNumberChange,
   updateLectureName,
-  updateLectureProfessor
+  updateLectureProfessor,
 } from "../redux/courses/coursesActions";
-import Slot from "./Slot";
+import Slots from "./Slots";
+import Tutorials from "./Tutorials";
 
 const Section = ({ section, sectionIndex, courseIndex }) => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
   ];
 
   // eslint-disable-next-line
-  const { sectionNumber, lecture, tutorial, lab } = section;
+  const { sectionNumber, lecture, tutorial: tutorials, lab } = section;
 
   const [lectureName, setLectureName] = useState(
     `${courseName} Lecture - Section ${sectionNumber}`
@@ -51,11 +51,7 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
 
   const professorChange = (e) => {
     dispatch(updateLectureProfessor(sectionIndex, courseIndex, e.target.value));
-  }
-
-  const onAddSlot = () => {
-    dispatch(addLectureSlot(sectionIndex, courseIndex));
-  }
+  };
 
   useEffect(() => {
     setLectureName(`${courseName} Lecture - Section ${sectionNumber}`);
@@ -120,24 +116,30 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
           </InputGroup>
         </Col>
         <Col>
-        <InputGroup className="my-2">
-          <InputGroup.Text>
-            <small>Professor</small>
-          </InputGroup.Text>
-          <FormControl name="professor" value={lecture.professor} onChange={professorChange} placeholder="Professor Name" />
-        </InputGroup>
+          <InputGroup className="my-2">
+            <InputGroup.Text>
+              <small>Professor</small>
+            </InputGroup.Text>
+            <FormControl
+              name="professor"
+              value={lecture.professor}
+              onChange={professorChange}
+              placeholder="Professor Name"
+            />
+          </InputGroup>
         </Col>
       </Row>
 
       {/* Slots */}
       <h4 className="mb-3">Lecture slots</h4>
-      {lecture.slots.map((slot, index) => (
-        <Slot
-          key={index}
-          {...{ courseIndex, sectionIndex, slotIndex: index }}
-        />
-      ))}
-      <button className="link" onClick={onAddSlot}>Add another slot?</button>
+      <Slots {...{ courseIndex, sectionIndex, slots: lecture.slots }} />
+      <div className="my-3">
+        {tutorials ? (
+          <Tutorials {...{ courseIndex, sectionIndex, tutorials }} />
+        ) : (
+          <button className="link">Add tutorials?</button>
+        )}
+      </div>
     </Fragment>
   );
 };

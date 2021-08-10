@@ -8,6 +8,23 @@ h1, h2, h3, h4, h5, h6 {
   background: #f0f0f0;
   border-radius: 10px;
 }
+.m-container {
+  margin: auto;
+  width: 80%;
+  @media screen and (max-width: 800px) {
+    width: 95%;
+  }
+  @media screen and (min-width: 1200px) {
+    width: 70%;
+  }
+  @media screen and (min-width: 1500px) {
+    width: 60%;
+  }
+}
+.jumbutron-dark {
+  background: #cecece;
+  border-radius: 7px;
+}
 *:focus {
   box-shadow: none !important;
 }

@@ -19,7 +19,7 @@ const Course = ({ body, courseName, courseIndex }) => {
   };
 
   return (
-    <div className="round-5 p-4 jumbutron mt-3">
+    <div className="round-5 p-4 jumbutron my-3 mb-5">
       <InputGroup className="my-3">
         <InputGroup.Text>
           {" "}

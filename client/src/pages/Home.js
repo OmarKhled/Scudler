@@ -7,7 +7,7 @@ const Home = () => {
   const { courses } = useSelector(state => state.courses)
 
   return (
-    <div className="mt-3" style={{ maxWidth: "80%", margin: "auto" }}>
+    <div className="mt-3" className="m-container">
       <h1>Home</h1>
 
       {

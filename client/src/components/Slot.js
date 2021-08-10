@@ -9,7 +9,7 @@ import {
   deleteLectureSlot,
 } from "../redux/courses/coursesActions";
 
-const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
+const Slot = ({ courseIndex, sectionIndex, slotIndex }) => {
   const dispatch = useDispatch();
 
   const { slots } = useSelector((state) => state.courses).courses[courseIndex]
@@ -17,8 +17,8 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
   const { day: slotDay, slot } = slots[slotIndex];
 
   const [day, setDay] = useState(slotDay);
-  const [from, setFrom] = useState(_.first(slot));
-  const [to, setTo] = useState(_.last(slot));
+  const [from, setFrom] = useState(slot[0]);
+  const [to, setTo] = useState(slot.length > 1 ? _.last(slot) : slot[0] + 1);
 
   const onSetTo = (e) => {
     setTo(e.target.value !== "to" ? Number(e.target.value) : "to");
@@ -57,6 +57,8 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
       modifiedSlot = { day: compinedSlot.day, slot: array };
     } else if (to === from + 1) {
       modifiedSlot = { day: compinedSlot.day, slot: [from] };
+    } else if (slot.length === 1) {
+      modifiedSlot = { day: compinedSlot.day, slot: [from] };
     } else {
       modifiedSlot = compinedSlot;
     }
@@ -70,8 +72,9 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
 
   useEffect(() => {
     setDay(slotDay);
-    setFrom(slot);
-    setTo(slot);
+    setFrom(slot[0]);
+    setTo(_.last(slot) + 1);
+    // eslint-disable-next-line
   }, [slots]);
 
   return (
@@ -102,6 +105,8 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
         <option value="4">12:30 PM</option>
         <option value="5">1:30 PM</option>
         <option value="6">2:30 PM</option>
+        <option value="7">3:30 PM</option>
+        <option value="8">4:30 PM</option>
       </Form.Select>
       <Form.Select value={to} onChange={(e) => onSetTo(e)}>
         <option disabled value="to">
@@ -131,6 +136,12 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
         <option value="7" disabled={from >= 7}>
           3:30 PM
         </option>
+        <option value="8" disabled={from >= 8}>
+          4:30 PM
+        </option>
+        <option value="9" disabled={from >= 9}>
+          5:30 PM
+        </option>
       </Form.Select>
       {slotIndex > 0 && (
         <Button variant="danger" onClick={onDelete}>
@@ -141,4 +152,4 @@ const Slots = ({ courseIndex, sectionIndex, slotIndex }) => {
   );
 };
 
-export default Slots;
+export default Slot;

@@ -6,11 +6,11 @@ export const initialTemplate = [
         sectionNumber: 1,
         lecture: {
           lectureName: "",
-          professor: "Yasser",
+          professor: "",
           slots: [
             {
-              day: 2,
-              slot: [0, 1, 2, 3],
+              day: 4,
+              slot: [7, 8],
             },
           ],
         },
