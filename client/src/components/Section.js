@@ -132,13 +132,12 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
 
       {/* Slots */}
       <h4 className="mb-3">Lecture slots</h4>
-      <Slots {...{ courseIndex, sectionIndex, slots: lecture.slots }} />
+      <Slots
+        {...{ courseIndex, sectionIndex, slots: lecture.slots }}
+        type="lecture"
+      />
       <div className="my-3">
-        {tutorials ? (
-          <Tutorials {...{ courseIndex, sectionIndex, tutorials }} />
-        ) : (
-          <button className="link">Add tutorials?</button>
-        )}
+        <Tutorials {...{ courseIndex, sectionIndex, tutorials }} />
       </div>
     </Fragment>
   );

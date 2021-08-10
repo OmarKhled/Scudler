@@ -16,8 +16,7 @@ import {
   changeTutorialTa,
   deleteTutorial,
 } from "../redux/courses/coursesActions";
-
-import _ from "lodash";
+import Slots from "./Slots";
 
 const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
   const dispatch = useDispatch();
@@ -32,9 +31,7 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
   const usedPrefixes = tutorials.map(
     (tut, index) => index !== tutorialIndex && tut.tutorialPrefix
   );
-  const usedPrefixes_letters = usedPrefixes.map((prefix) => prefix[1]);
 
-  // eslint-disable-next-line
   const { tutorialName, tutorialPrefix, ta, slots } = tutorial;
 
   const prefixes = ["A", "B", "C", "D"];
@@ -50,22 +47,6 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
     );
   };
 
-  useEffect(() => {
-    if (usedPrefixes.includes(tutorialPrefix)) {
-      const options = document.querySelector("#prefixes").options;
-      for (let index = 0; index < options.length; index++) {
-        const option = options[index];
-        console.log(option);
-        if (!option.disabled) {
-          document.querySelector("#prefixes").getElementsByTagName("option")[
-            index
-          ].selected = "selected";
-          return;
-        }
-      }
-    }
-  }, [usedPrefixes]);
-
   const onTaChange = (e) => {
     dispatch(
       changeTutorialTa(sectionIndex, courseIndex, tutorialIndex, e.target.value)
@@ -75,18 +56,6 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
   const onDelete = () => {
     dispatch(deleteTutorial(sectionIndex, courseIndex, tutorialIndex));
   };
-
-  useEffect(() => {
-    dispatch(
-      changeTutorialPrefix(
-        sectionIndex,
-        courseIndex,
-        tutorialIndex,
-        `${sectionNumber}A`
-      )
-    );
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     dispatch(
@@ -106,7 +75,7 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
         sectionIndex,
         courseIndex,
         tutorialIndex,
-        `${sectionNumber}${tutorialPrefix !== "" ? tutorialPrefix[1] : "A"}`
+        `${sectionNumber}${tutorialPrefix[1]}`
       )
     );
     // eslint-disable-next-line
@@ -166,6 +135,11 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
           </InputGroup>
         </Col>
       </Row>
+
+      <Slots
+        {...{ courseIndex, sectionIndex, slots, tutorialIndex }}
+        type="tut"
+      />
     </div>
   );
 };

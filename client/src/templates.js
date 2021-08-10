@@ -17,23 +17,12 @@ export const initialTemplate = [
         tutorial: [
           {
             tutorialName: "",
-            tutorialPrefix: "",
+            tutorialPrefix: "1A",
             ta: "",
             slots: [
               {
                 day: 3,
                 slot: [0, 1],
-              },
-            ],
-          },
-          {
-            tutorialName: "",
-            tutorialPrefix: "",
-            ta: "",
-            slots: [
-              {
-                day: 2,
-                slot: [0, 3],
               },
             ],
           },
@@ -55,6 +44,8 @@ export const sectionTemplate = {
       },
     ],
   },
+  tutorial: [],
+  lab: [],
 };
 
 export const slotTemplate = {
@@ -69,6 +60,10 @@ export const tutorialTemplate = {
   slots: [
     {
       day: 3,
+      slot: [0, 1],
+    },
+    {
+      day: 1,
       slot: [0, 1],
     },
   ],

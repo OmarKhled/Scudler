@@ -13,6 +13,9 @@ import {
   CHANGE_TUTORIAL_TA,
   DELETE_TUTORIAL,
   ADD_TUTORIAL,
+  DELETE_TUTORIAL_SLOT,
+  UPDATE_TUTORIAL_SLOT,
+  ADD_TUTORIAL_SLOT,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -57,14 +60,6 @@ export const updateLectureName =
     });
   };
 
-export const updateLectureSlot =
-  (sectionIndex, courseIndex, slotIndex, slot) => (dispatch) => {
-    dispatch({
-      type: UPDATE_LECTURE_SLOT,
-      payload: { sectionIndex, courseIndex, slotIndex, slot },
-    });
-  };
-
 export const updateLectureProfessor =
   (sectionIndex, courseIndex, professor) => (dispatch) => {
     dispatch({
@@ -81,12 +76,45 @@ export const deleteLectureSlot =
     });
   };
 
+export const updateLectureSlot =
+  (sectionIndex, courseIndex, slotIndex, slot) => (dispatch) => {
+    dispatch({
+      type: UPDATE_LECTURE_SLOT,
+      payload: { sectionIndex, courseIndex, slotIndex, slot },
+    });
+  };
+
 export const addLectureSlot = (sectionIndex, courseIndex) => (dispatch) => {
   dispatch({
     type: ADD_LECTURE_SLOT,
     payload: { sectionIndex, courseIndex },
   });
 };
+
+// Tutorials
+export const deleteTutorialSlot =
+  (sectionIndex, courseIndex, slotIndex, tutorialIndex) => (dispatch) => {
+    dispatch({
+      type: DELETE_TUTORIAL_SLOT,
+      payload: { sectionIndex, courseIndex, slotIndex, tutorialIndex },
+    });
+  };
+
+export const updateTutorialSlot =
+  (sectionIndex, courseIndex, slotIndex, slot, tutorialIndex) => (dispatch) => {
+    dispatch({
+      type: UPDATE_TUTORIAL_SLOT,
+      payload: { sectionIndex, courseIndex, slotIndex, slot, tutorialIndex },
+    });
+  };
+
+export const addTutorialSlot =
+  (sectionIndex, courseIndex, tutorialIndex) => (dispatch) => {
+    dispatch({
+      type: ADD_TUTORIAL_SLOT,
+      payload: { sectionIndex, courseIndex, tutorialIndex },
+    });
+  };
 
 export const changeTutorialPrefix =
   (sectionIndex, courseIndex, tutorialIndex, prefix) => (dispatch) => {
@@ -120,9 +148,33 @@ export const deleteTutorial =
     });
   };
 
-export const addTutorial = (sectionIndex, courseIndex) => (dispatch) => {
-  dispatch({
-    type: ADD_TUTORIAL,
-    payload: { sectionIndex, courseIndex },
-  });
-};
+export const addTutorial =
+  (sectionIndex, courseIndex, sectionNumber) => (dispatch, getState) => {
+    const prefixes = getState().courses.courses[courseIndex].body[
+      sectionIndex
+    ].tutorial.map((tut) => tut.tutorialPrefix);
+    if (prefixes.length > 0) {
+      const prefixesTemplate = [
+        `${sectionNumber}A`,
+        `${sectionNumber}B`,
+        `${sectionNumber}C`,
+        `${sectionNumber}D`,
+      ];
+
+      const avilablePrefixes = _.differenceWith(
+        prefixesTemplate,
+        prefixes,
+        _.isEqual
+      );
+
+      dispatch({
+        type: ADD_TUTORIAL,
+        payload: { sectionIndex, courseIndex, prefix: avilablePrefixes[0] },
+      });
+    } else {
+      dispatch({
+        type: ADD_TUTORIAL,
+        payload: { sectionIndex, courseIndex, prefix: `${sectionNumber}A` },
+      });
+    }
+  };

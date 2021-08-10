@@ -3,17 +3,24 @@ import { Button, Form } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import _ from "lodash";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   updateLectureSlot,
   deleteLectureSlot,
+  updateTutorialSlot,
+  deleteTutorialSlot,
 } from "../redux/courses/coursesActions";
 
-const Slot = ({ courseIndex, sectionIndex, slotIndex }) => {
+const Slot = ({
+  courseIndex,
+  sectionIndex,
+  slotIndex,
+  type,
+  slots,
+  tutorialIndex,
+}) => {
   const dispatch = useDispatch();
 
-  const { slots } = useSelector((state) => state.courses).courses[courseIndex]
-    .body[sectionIndex].lecture;
   const { day: slotDay, slot } = slots[slotIndex];
 
   const [day, setDay] = useState(slotDay);
@@ -29,7 +36,23 @@ const Slot = ({ courseIndex, sectionIndex, slotIndex }) => {
   };
 
   const onDelete = () => {
-    dispatch(deleteLectureSlot(sectionIndex, courseIndex, slotIndex));
+    switch (type) {
+      case "lecture":
+        dispatch(deleteLectureSlot(sectionIndex, courseIndex, slotIndex));
+        break;
+      case "tut":
+        dispatch(
+          deleteTutorialSlot(
+            sectionIndex,
+            courseIndex,
+            slotIndex,
+            tutorialIndex
+          )
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
@@ -63,9 +86,26 @@ const Slot = ({ courseIndex, sectionIndex, slotIndex }) => {
       modifiedSlot = compinedSlot;
     }
 
-    dispatch(
-      updateLectureSlot(sectionIndex, courseIndex, slotIndex, modifiedSlot)
-    );
+    switch (type) {
+      case "lecture":
+        dispatch(
+          updateLectureSlot(sectionIndex, courseIndex, slotIndex, modifiedSlot)
+        );
+        break;
+      case "tut":
+        dispatch(
+          updateTutorialSlot(
+            sectionIndex,
+            courseIndex,
+            slotIndex,
+            modifiedSlot,
+            tutorialIndex
+          )
+        );
+        break;
+      default:
+        break;
+    }
 
     // eslint-disable-next-line
   }, [day, from, to]);
