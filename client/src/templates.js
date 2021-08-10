@@ -61,3 +61,15 @@ export const slotTemplate = {
   day: 2,
   slot: [0, 1],
 };
+
+export const tutorialTemplate = {
+  tutorialName: "",
+  tutorialPrefix: "",
+  ta: "",
+  slots: [
+    {
+      day: 3,
+      slot: [0, 1],
+    },
+  ],
+};

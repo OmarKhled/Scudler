@@ -13,18 +13,28 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   changeTutorialPrefix,
   changeTutorialName,
+  changeTutorialTa,
+  deleteTutorial,
 } from "../redux/courses/coursesActions";
+
+import _ from "lodash";
 
 const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
   const dispatch = useDispatch();
 
-  const { sectionNumber } = useSelector((state) => state.courses).courses[
-    courseIndex
-  ].body[sectionIndex];
+  const { sectionNumber, tutorial: tutorials } = useSelector(
+    (state) => state.courses
+  ).courses[courseIndex].body[sectionIndex];
   const { courseName } = useSelector((state) => state.courses).courses[
     courseIndex
   ];
 
+  const usedPrefixes = tutorials.map(
+    (tut, index) => index !== tutorialIndex && tut.tutorialPrefix
+  );
+  const usedPrefixes_letters = usedPrefixes.map((prefix) => prefix[1]);
+
+  // eslint-disable-next-line
   const { tutorialName, tutorialPrefix, ta, slots } = tutorial;
 
   const prefixes = ["A", "B", "C", "D"];
@@ -40,10 +50,30 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
     );
   };
 
+  useEffect(() => {
+    if (usedPrefixes.includes(tutorialPrefix)) {
+      const options = document.querySelector("#prefixes").options;
+      for (let index = 0; index < options.length; index++) {
+        const option = options[index];
+        console.log(option);
+        if (!option.disabled) {
+          document.querySelector("#prefixes").getElementsByTagName("option")[
+            index
+          ].selected = "selected";
+          return;
+        }
+      }
+    }
+  }, [usedPrefixes]);
+
   const onTaChange = (e) => {
-    // dispatch(
-    //   changeTutorialTa(sectionIndex, courseIndex, tutorialIndex, e.target.value)
-    // );
+    dispatch(
+      changeTutorialTa(sectionIndex, courseIndex, tutorialIndex, e.target.value)
+    );
+  };
+
+  const onDelete = () => {
+    dispatch(deleteTutorial(sectionIndex, courseIndex, tutorialIndex));
   };
 
   useEffect(() => {
@@ -71,7 +101,6 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
   }, [tutorialPrefix, courseName]);
 
   useEffect(() => {
-    console.log(sectionNumber);
     dispatch(
       changeTutorialPrefix(
         sectionIndex,
@@ -80,6 +109,7 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
         `${sectionNumber}${tutorialPrefix !== "" ? tutorialPrefix[1] : "A"}`
       )
     );
+    // eslint-disable-next-line
   }, [sectionNumber]);
 
   return (
@@ -88,12 +118,14 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
         <Col xs="auto" className="d-flex align-items-center gap-2">
           <p className="mb-1">Tutorial Prefix:</p>
           <Form.Select
+            id="prefixes"
             value={tutorialPrefix === "" ? `${sectionNumber}A` : tutorialPrefix}
             onChange={onChangePrefix}
             style={{ width: "max-content" }}
           >
             {prefixes.map((prefix, index) => (
               <option
+                disabled={usedPrefixes.includes(`${sectionNumber}${prefix}`)}
                 key={index}
                 value={`${sectionNumber}${prefix}`}
               >{`${sectionNumber}${prefix}`}</option>
@@ -101,7 +133,7 @@ const Tutorial = ({ tutorial, tutorialIndex, courseIndex, sectionIndex }) => {
           </Form.Select>
         </Col>
         <Col className="d-flex justify-content-end">
-          <Button variant="danger">
+          <Button variant="danger" onClick={onDelete}>
             <FaTrashAlt />
           </Button>
         </Col>

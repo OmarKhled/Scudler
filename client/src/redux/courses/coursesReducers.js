@@ -2,6 +2,7 @@ import {
   initialTemplate,
   sectionTemplate,
   slotTemplate,
+  tutorialTemplate,
 } from "../../templates";
 
 import {
@@ -16,6 +17,9 @@ import {
   ADD_LECTURE_SLOT,
   CHANGE_TUTORIAL_PREFIX,
   CHANGE_TUTORIAL_NAME,
+  CHANGE_TUTORIAL_TA,
+  DELETE_TUTORIAL,
+  ADD_TUTORIAL,
 } from "../types/coursesTypes";
 
 const initialState = {
@@ -173,9 +177,50 @@ const reducer = (state = initialState, action) => {
 
     case CHANGE_TUTORIAL_NAME: {
       // Change Name
+      try {
+        newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
+          payload.tutorialIndex
+        ].tutorialName = payload.tutorialName;
+      } catch (err) {
+        console.log(err);
+      }
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case CHANGE_TUTORIAL_TA: {
+      // Change Name
       newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
         payload.tutorialIndex
-      ].tutorialName = payload.tutorialName;
+      ].ta = payload.ta;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case DELETE_TUTORIAL: {
+      // Delete Tutorial
+      newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial =
+        newCourses[payload.courseIndex].body[
+          payload.sectionIndex
+        ].tutorial.filter((tutorial, index) => index !== payload.tutorialIndex);
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case ADD_TUTORIAL: {
+      // Add Tutorial
+      newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial.push(
+        Object.assign({}, tutorialTemplate)
+      );
 
       return {
         ...state,
