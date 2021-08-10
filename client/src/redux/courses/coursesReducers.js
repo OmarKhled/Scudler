@@ -14,6 +14,8 @@ import {
   UPDATE_LECTURE_PROFESSOR,
   DELETE_LECTURE_SLOT,
   ADD_LECTURE_SLOT,
+  CHANGE_TUTORIAL_PREFIX,
+  CHANGE_TUTORIAL_NAME,
 } from "../types/coursesTypes";
 
 const initialState = {
@@ -150,6 +152,30 @@ const reducer = (state = initialState, action) => {
       newCourses[payload.courseIndex].body[
         payload.sectionIndex
       ].lecture.slots.push(slotTemplate);
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case CHANGE_TUTORIAL_PREFIX: {
+      // Changing prefix
+      newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
+        payload.tutorialIndex
+      ].tutorialPrefix = payload.prefix;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case CHANGE_TUTORIAL_NAME: {
+      // Change Name
+      newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
+        payload.tutorialIndex
+      ].tutorialName = payload.tutorialName;
 
       return {
         ...state,

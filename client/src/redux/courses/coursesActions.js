@@ -8,6 +8,8 @@ import {
   UPDATE_LECTURE_PROFESSOR,
   DELETE_LECTURE_SLOT,
   ADD_LECTURE_SLOT,
+  CHANGE_TUTORIAL_PREFIX,
+  CHANGE_TUTORIAL_NAME,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -82,3 +84,19 @@ export const addLectureSlot = (sectionIndex, courseIndex) => (dispatch) => {
     payload: { sectionIndex, courseIndex },
   });
 };
+
+export const changeTutorialPrefix =
+  (sectionIndex, courseIndex, tutorialIndex, prefix) => (dispatch) => {
+    dispatch({
+      type: CHANGE_TUTORIAL_PREFIX,
+      payload: { sectionIndex, courseIndex, tutorialIndex, prefix },
+    });
+  };
+
+export const changeTutorialName =
+  (sectionIndex, courseIndex, tutorialIndex, tutorialName) => (dispatch) => {
+    dispatch({
+      type: CHANGE_TUTORIAL_NAME,
+      payload: { sectionIndex, courseIndex, tutorialIndex, tutorialName },
+    });
+  };
