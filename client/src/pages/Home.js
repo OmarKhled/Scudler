@@ -7,7 +7,7 @@ const Home = () => {
   const { courses } = useSelector(state => state.courses)
 
   return (
-    <div className="mt-3" className="m-container">
+    <div className="mt-3 m-container">
       <h1>Home</h1>
 
       {

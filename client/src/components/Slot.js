@@ -34,7 +34,7 @@ const Slot = ({ courseIndex, sectionIndex, slotIndex }) => {
 
   useEffect(() => {
     if (from >= to) {
-      setTo(from < 7 ? from + 1 : from);
+      setTo(from + 1);
     }
   }, [from, to]);
 

@@ -17,6 +17,7 @@ export const initialTemplate = [
         tutorial: [
           {
             tutorialName: "",
+            tutorialPrefix: "",
             ta: "",
             slots: [
               {
@@ -27,6 +28,7 @@ export const initialTemplate = [
           },
           {
             tutorialName: "",
+            tutorialPrefix: "",
             ta: "",
             slots: [
               {
