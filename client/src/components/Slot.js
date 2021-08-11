@@ -9,6 +9,8 @@ import {
   deleteLectureSlot,
   updateTutorialSlot,
   deleteTutorialSlot,
+  updateLabSlot,
+  deleteLabSlot,
 } from "../redux/courses/coursesActions";
 
 const Slot = ({
@@ -48,6 +50,10 @@ const Slot = ({
             slotIndex,
             tutorialIndex
           )
+        );
+      case "lab":
+        dispatch(
+          deleteLabSlot(sectionIndex, courseIndex, slotIndex, tutorialIndex)
         );
         break;
       default:
@@ -95,6 +101,17 @@ const Slot = ({
       case "tutorial":
         dispatch(
           updateTutorialSlot(
+            sectionIndex,
+            courseIndex,
+            slotIndex,
+            modifiedSlot,
+            tutorialIndex
+          )
+        );
+        break;
+      case "lab":
+        dispatch(
+          updateLabSlot(
             sectionIndex,
             courseIndex,
             slotIndex,

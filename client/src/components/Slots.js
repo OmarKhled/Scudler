@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   addLectureSlot,
   addTutorialSlot,
+  addLabSlot,
 } from "../redux/courses/coursesActions";
 import Slot from "./Slot";
 
@@ -17,6 +18,9 @@ const Slots = ({ courseIndex, sectionIndex, slots, type, tutorialIndex }) => {
         break;
       case "tutorial":
         dispatch(addTutorialSlot(sectionIndex, courseIndex, tutorialIndex));
+        break;
+      case "lab":
+        dispatch(addLabSlot(sectionIndex, courseIndex, tutorialIndex));
         break;
       default:
         break;

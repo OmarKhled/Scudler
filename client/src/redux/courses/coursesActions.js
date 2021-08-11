@@ -21,6 +21,9 @@ import {
   CHANGE_LAB_TA,
   DELETE_LAB,
   ADD_LAB,
+  DELETE_LAB_SLOT,
+  UPDATE_LAB_SLOT,
+  ADD_LAB_SLOT,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -118,6 +121,31 @@ export const addTutorialSlot =
     dispatch({
       type: ADD_TUTORIAL_SLOT,
       payload: { sectionIndex, courseIndex, tutorialIndex },
+    });
+  };
+
+// Labs
+export const deleteLabSlot =
+  (sectionIndex, courseIndex, slotIndex, labIndex) => (dispatch) => {
+    dispatch({
+      type: DELETE_LAB_SLOT,
+      payload: { sectionIndex, courseIndex, slotIndex, labIndex },
+    });
+  };
+
+export const updateLabSlot =
+  (sectionIndex, courseIndex, slotIndex, slot, labIndex) => (dispatch) => {
+    dispatch({
+      type: UPDATE_LAB_SLOT,
+      payload: { sectionIndex, courseIndex, slotIndex, slot, labIndex },
+    });
+  };
+
+export const addLabSlot =
+  (sectionIndex, courseIndex, labIndex) => (dispatch) => {
+    dispatch({
+      type: ADD_LAB_SLOT,
+      payload: { sectionIndex, courseIndex, labIndex },
     });
   };
 

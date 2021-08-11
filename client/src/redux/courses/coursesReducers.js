@@ -29,6 +29,9 @@ import {
   CHANGE_LAB_NAME,
   DELETE_LAB,
   ADD_LAB,
+  ADD_LAB_SLOT,
+  UPDATE_LAB_SLOT,
+  DELETE_LAB_SLOT,
 } from "../types/coursesTypes";
 
 const initialState = {
@@ -323,7 +326,6 @@ const reducer = (state = initialState, action) => {
       newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
         payload.tutorialIndex
       ].slots[payload.slotIndex] = payload.slot;
-
       return {
         ...state,
         courses: newCourses,
@@ -339,6 +341,48 @@ const reducer = (state = initialState, action) => {
       );
       newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
         payload.tutorialIndex
+      ].slots = newSlots;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    // Labs
+    case ADD_LAB_SLOT: {
+      // Adding slot
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs[
+        payload.labIndex
+      ].slots.push(slotTemplate);
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case UPDATE_LAB_SLOT: {
+      // Update Slot
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs[
+        payload.labIndex
+      ].slots[payload.slotIndex] = payload.slot;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case DELETE_LAB_SLOT: {
+      // Deleting slot
+      const newSlots = newCourses[payload.courseIndex].body[
+        payload.sectionIndex
+      ].labs[payload.labIndex].slots.filter(
+        (slot, index) => index !== payload.slotIndex
+      );
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs[
+        payload.labIndex
       ].slots = newSlots;
 
       return {
