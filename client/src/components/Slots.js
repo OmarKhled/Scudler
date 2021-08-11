@@ -15,7 +15,7 @@ const Slots = ({ courseIndex, sectionIndex, slots, type, tutorialIndex }) => {
       case "lecture":
         dispatch(addLectureSlot(sectionIndex, courseIndex));
         break;
-      case "tut":
+      case "tutorial":
         dispatch(addTutorialSlot(sectionIndex, courseIndex, tutorialIndex));
         break;
       default:

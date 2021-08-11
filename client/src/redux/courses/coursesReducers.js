@@ -1,5 +1,6 @@
 import {
   initialTemplate,
+  labTemplate,
   sectionTemplate,
   slotTemplate,
   tutorialTemplate,
@@ -23,6 +24,11 @@ import {
   ADD_TUTORIAL_SLOT,
   DELETE_TUTORIAL_SLOT,
   UPDATE_TUTORIAL_SLOT,
+  CHANGE_LAB_TA,
+  CHANGE_LAB_PREFIX,
+  CHANGE_LAB_NAME,
+  DELETE_LAB,
+  ADD_LAB,
 } from "../types/coursesTypes";
 
 const initialState = {
@@ -144,7 +150,6 @@ const reducer = (state = initialState, action) => {
       const newSlots = newCourses[payload.courseIndex].body[
         payload.sectionIndex
       ].lecture.slots.filter((slot, index) => index !== payload.slotIndex);
-      console.log(newSlots);
       newCourses[payload.courseIndex].body[payload.sectionIndex].lecture.slots =
         newSlots;
 
@@ -219,12 +224,80 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    // Labs
+    case CHANGE_LAB_PREFIX: {
+      // Changing prefix
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs[
+        payload.labIndex
+      ].labPrefix = payload.prefix;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case CHANGE_LAB_NAME: {
+      // Change Name
+      try {
+        newCourses[payload.courseIndex].body[payload.sectionIndex].labs[
+          payload.labIndex
+        ].labName = payload.labName;
+      } catch (err) {
+        console.log(err);
+      }
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case CHANGE_LAB_TA: {
+      // Change Name
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs[
+        payload.labIndex
+      ].ta = payload.ta;
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case DELETE_LAB: {
+      // Delete Tutorial
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs =
+        newCourses[payload.courseIndex].body[payload.sectionIndex].labs.filter(
+          (lab, index) => index !== payload.labIndex
+        );
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
     case ADD_TUTORIAL: {
       // Add Tutorial
       const newTutorial = Object.assign({}, tutorialTemplate);
       newTutorial.tutorialPrefix = payload.prefix;
       newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial.push(
         newTutorial
+      );
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case ADD_LAB: {
+      // Add Lab
+      const newLab = Object.assign({}, labTemplate);
+      newLab.labPrefix = payload.prefix;
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs.push(
+        newLab
       );
 
       return {
@@ -264,7 +337,6 @@ const reducer = (state = initialState, action) => {
       ].tutorial[payload.tutorialIndex].slots.filter(
         (slot, index) => index !== payload.slotIndex
       );
-      console.log(newSlots);
       newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
         payload.tutorialIndex
       ].slots = newSlots;

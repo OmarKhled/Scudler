@@ -27,6 +27,19 @@ export const initialTemplate = [
             ],
           },
         ],
+        labs: [
+          {
+            labName: "",
+            labPrefix: "1A",
+            ta: "",
+            slots: [
+              {
+                day: 0,
+                slot: [2, 3],
+              },
+            ],
+          },
+        ],
       },
     ],
   },
@@ -65,6 +78,18 @@ export const tutorialTemplate = {
     {
       day: 1,
       slot: [0, 1],
+    },
+  ],
+};
+
+export const labTemplate = {
+  labName: "",
+  labPrefix: "1A",
+  ta: "",
+  slots: [
+    {
+      day: 0,
+      slot: [2, 3],
     },
   ],
 };

@@ -16,6 +16,11 @@ import {
   DELETE_TUTORIAL_SLOT,
   UPDATE_TUTORIAL_SLOT,
   ADD_TUTORIAL_SLOT,
+  CHANGE_LAB_PREFIX,
+  CHANGE_LAB_NAME,
+  CHANGE_LAB_TA,
+  DELETE_LAB,
+  ADD_LAB,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -148,6 +153,40 @@ export const deleteTutorial =
     });
   };
 
+// Labs
+
+export const changeLabPrefix =
+  (sectionIndex, courseIndex, labIndex, prefix) => (dispatch) => {
+    dispatch({
+      type: CHANGE_LAB_PREFIX,
+      payload: { sectionIndex, courseIndex, labIndex, prefix },
+    });
+  };
+
+export const changeLabName =
+  (sectionIndex, courseIndex, labIndex, labName) => (dispatch) => {
+    dispatch({
+      type: CHANGE_LAB_NAME,
+      payload: { sectionIndex, courseIndex, labIndex, labName },
+    });
+  };
+
+export const changeLabTa =
+  (sectionIndex, courseIndex, labIndex, ta) => (dispatch) => {
+    dispatch({
+      type: CHANGE_LAB_TA,
+      payload: { sectionIndex, courseIndex, labIndex, ta },
+    });
+  };
+
+export const deleteLab =
+  (sectionIndex, courseIndex, labIndex) => (dispatch) => {
+    dispatch({
+      type: DELETE_LAB,
+      payload: { sectionIndex, courseIndex, labIndex },
+    });
+  };
+
 export const addTutorial =
   (sectionIndex, courseIndex, sectionNumber) => (dispatch, getState) => {
     const prefixes = getState().courses.courses[courseIndex].body[
@@ -174,6 +213,37 @@ export const addTutorial =
     } else {
       dispatch({
         type: ADD_TUTORIAL,
+        payload: { sectionIndex, courseIndex, prefix: `${sectionNumber}A` },
+      });
+    }
+  };
+
+export const addLab =
+  (sectionIndex, courseIndex, sectionNumber) => (dispatch, getState) => {
+    const prefixes = getState().courses.courses[courseIndex].body[
+      sectionIndex
+    ].labs.map((lab) => lab.labPrefix);
+    if (prefixes.length > 0) {
+      const prefixesTemplate = [
+        `${sectionNumber}A`,
+        `${sectionNumber}B`,
+        `${sectionNumber}C`,
+        `${sectionNumber}D`,
+      ];
+
+      const avilablePrefixes = _.differenceWith(
+        prefixesTemplate,
+        prefixes,
+        _.isEqual
+      );
+
+      dispatch({
+        type: ADD_LAB,
+        payload: { sectionIndex, courseIndex, prefix: avilablePrefixes[0] },
+      });
+    } else {
+      dispatch({
+        type: ADD_LAB,
         payload: { sectionIndex, courseIndex, prefix: `${sectionNumber}A` },
       });
     }

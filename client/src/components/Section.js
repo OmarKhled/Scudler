@@ -11,7 +11,7 @@ import {
   updateLectureProfessor,
 } from "../redux/courses/coursesActions";
 import Slots from "./Slots";
-import Tutorials from "./Tutorials";
+import Subtypes from "./Subtypes";
 
 const Section = ({ section, sectionIndex, courseIndex }) => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
   ];
 
   // eslint-disable-next-line
-  const { sectionNumber, lecture, tutorial: tutorials, lab } = section;
+  const { sectionNumber, lecture, tutorial: tutorials, labs } = section;
 
   const [lectureName, setLectureName] = useState(
     `${courseName} Lecture - Section ${sectionNumber}`
@@ -101,6 +101,8 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
       <hr />
 
       {/* Lecture */}
+
+      <h3 className="mb-3">Lecture</h3>
       <Row className="my-1">
         <Col xs="12" sm="6">
           <InputGroup className="my-2">
@@ -131,13 +133,21 @@ const Section = ({ section, sectionIndex, courseIndex }) => {
       </Row>
 
       {/* Slots */}
-      <h4 className="mb-3">Lecture slots</h4>
       <Slots
         {...{ courseIndex, sectionIndex, slots: lecture.slots }}
         type="lecture"
       />
       <div className="my-3">
-        <Tutorials {...{ courseIndex, sectionIndex, tutorials }} />
+        <Subtypes
+          {...{ courseIndex, sectionIndex, subtypes: tutorials }}
+          type="tutorial"
+        />
+      </div>
+      <div className="my-3">
+        <Subtypes
+          {...{ courseIndex, sectionIndex, subtypes: labs }}
+          type="lab"
+        />
       </div>
     </Fragment>
   );
