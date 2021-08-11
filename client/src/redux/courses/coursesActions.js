@@ -24,8 +24,23 @@ import {
   DELETE_LAB_SLOT,
   UPDATE_LAB_SLOT,
   ADD_LAB_SLOT,
+  ADD_COURSE,
+  DELETE_COURSE,
 } from "../types/coursesTypes";
 import _ from "lodash";
+
+export const addCourse = () => (dispatch) => {
+  dispatch({
+    type: ADD_COURSE,
+  });
+};
+
+export const deleteCourse = (courseIndex) => (dispatch) => {
+  dispatch({
+    type: DELETE_COURSE,
+    payload: { courseIndex },
+  });
+};
 
 export const addSection = (courseIndex) => (dispatch, getState) => {
   const newSectionNumber = getState().courses.courses[courseIndex].body[0]

@@ -1,3 +1,6 @@
+export const ADD_COURSE = "ADD_COURSE";
+export const DELETE_COURSE = "DELETE_COURSE";
+
 export const COURSE_NAME_CHANGE = "COURSE_NAME_CHANGE";
 export const ADD_NEW_SECTION = "ADD_NEW_SECTION";
 export const DELETE_SECTION = "DELETE_SECTION";

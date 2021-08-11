@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Tabs, Tab, InputGroup, FormControl, Button } from "react-bootstrap";
+import { Tabs, Tab, InputGroup, FormControl, Button, Row, Col } from "react-bootstrap";
 
 import Section from "./Section";
 
 import { useDispatch } from "react-redux";
-import { courseNameChange, addSection } from "../redux/courses/coursesActions";
+import { courseNameChange, addSection, deleteCourse } from "../redux/courses/coursesActions";
+import { FaTimes } from "react-icons/fa";
 
 const Course = ({ body, courseName, courseIndex }) => {
   const dispatch = useDispatch();
@@ -18,21 +19,36 @@ const Course = ({ body, courseName, courseIndex }) => {
     dispatch(courseNameChange(courseIndex, e.target.value.toUpperCase()));
   };
 
+  const onDelete = () => {
+    dispatch(deleteCourse(courseIndex))
+  }
+
   return (
-    <div className="round-5 p-4 jumbutron my-3 mb-5">
-      <InputGroup className="my-3">
-        <InputGroup.Text>
-          {" "}
-          <small>Course name</small>
-        </InputGroup.Text>
-        <FormControl
-          name="Course name"
-          value={courseName}
-          onChange={onCourseNameChange}
-          placeholder="Course name"
-          aria-label="Course name"
-        />
-      </InputGroup>
+    <div className="round-5 p-4 jumbutron my-3 ">
+      <Row className="align-items-center">
+        <Col>
+          <InputGroup className="my-3">
+            <InputGroup.Text>
+              {" "}
+              <small>Course name</small>
+            </InputGroup.Text>
+            <FormControl
+              name="Course name"
+              value={courseName}
+              onChange={onCourseNameChange}
+              placeholder="Course name"
+              aria-label="Course name"
+            />
+          </InputGroup>
+        </Col>
+
+        {courseIndex > 0 && (
+          <Col xs="auto">
+            <Button variant="danger" onClick={onDelete}><FaTimes /></Button>
+          </Col>
+        )}
+
+      </Row>
 
       <div className="d-flex justify-content-end my-2">
         <Button onClick={onAddSection} variant="success">

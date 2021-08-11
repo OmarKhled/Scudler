@@ -34,7 +34,7 @@ export const sectionTemplate = {
     ],
   },
   tutorial: [],
-  lab: [],
+  labs: [],
 };
 
 export const slotTemplate = {
@@ -62,6 +62,27 @@ export const labTemplate = {
     {
       day: 0,
       slot: [0, 1],
+    },
+  ],
+};
+
+export const courseTemplate = {
+  courseName: "DEMO",
+  body: [
+    {
+      sectionNumber: 1,
+      lecture: {
+        lectureName: "",
+        professor: "",
+        slots: [
+          {
+            day: 2,
+            slot: [0, 3],
+          },
+        ],
+      },
+      tutorial: [],
+      labs: [],
     },
   ],
 };

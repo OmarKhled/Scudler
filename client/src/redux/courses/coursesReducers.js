@@ -1,4 +1,5 @@
 import {
+  courseTemplate,
   initialTemplate,
   labTemplate,
   sectionTemplate,
@@ -32,6 +33,8 @@ import {
   ADD_LAB_SLOT,
   UPDATE_LAB_SLOT,
   DELETE_LAB_SLOT,
+  ADD_COURSE,
+  DELETE_COURSE,
 } from "../types/coursesTypes";
 
 const initialState = {
@@ -43,6 +46,27 @@ const reducer = (state = initialState, action) => {
   let newCourses = state.courses;
 
   switch (type) {
+    case ADD_COURSE: {
+      newCourses.push(Object.assign({}, courseTemplate));
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
+    case DELETE_COURSE: {
+      console.log(payload.courseIndex);
+      newCourses = newCourses.filter(
+        (course, index) => index !== payload.courseIndex
+      );
+
+      return {
+        ...state,
+        courses: newCourses,
+      };
+    }
+
     case COURSE_NAME_CHANGE: {
       // Changing course name
       newCourses[payload.courseIndex].courseName = payload.courseName;
