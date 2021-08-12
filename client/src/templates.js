@@ -1,6 +1,6 @@
 export const initialTemplate = [
   {
-    courseName: "MATH0002",
+    courseName: "MATH002",
     body: [
       {
         sectionNumber: 1,

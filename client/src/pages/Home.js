@@ -1,10 +1,13 @@
+import { useState } from "react";
 import Course from "../components/Course.js";
-import { Button, FormControl } from "react-bootstrap";
+import Schedule from "../components/Schedule.js";
+
+import { Button } from "react-bootstrap";
+
 import axios from "axios";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addCourse } from "../redux/courses/coursesActions";
-import { useState } from "react";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,12 +18,29 @@ const Home = () => {
     dispatch(addCourse());
   };
 
-  let [output, setOutput] = useState({ data: "data" });
+  const map = [
+    /* 0   1   2   3   4   5   6   7,  8 */
+    [[], [], [], [], [], [], [], [], []], // Sunday   0
+    [[], [], [], [], [], [], [], [], []], // Monday   1
+    [[], [], [], [], [], [], [], [], []], // Tuesday  2
+    [[], [], [], [], [], [], [], [], []], // Wendsday 3
+    [[], [], [], [], [], [], [], [], []], // Thursday 4
+  ];
+
+  let [schedule, setSchedule] = useState([
+    /* 0   1   2   3   4   5   6   7,  8 */
+    [[], [], [], [], [], [], [], [], []], // Sunday   0
+    [[], [], [], [], [], [], [], [], []], // Monday   1
+    [[], [], [], [], [], [], [], [], []], // Tuesday  2
+    [[], [], [], [], [], [], [], [], []], // Wendsday 3
+    [[], [], [], [], [], [], [], [], []], // Thursday 4
+  ]);
 
   const onMakeSchedule = async () => {
-    console.log(courses);
     const res = await axios.post("/api/schedules", { courses });
-    setOutput(res.data);
+    console.log(res.data.schedule);
+    setSchedule(res.data.schedule);
+    console.log(res.data.schedule[0][0]);
   };
 
   return (
@@ -36,12 +56,10 @@ const Home = () => {
       <br />
       <div className="my-4">
         <Button onClick={onMakeSchedule} variant="success">
-          Show possibilities
+          Generate Schedule
         </Button>
       </div>
-      <div className="form-control" style={{ background: "#FADA5E" }}>
-        <pre>{JSON.stringify(output, null, 2)}</pre>
-      </div>
+      <Schedule schedule={schedule} />
     </div>
   );
 };

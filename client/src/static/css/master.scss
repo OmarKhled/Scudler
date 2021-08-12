@@ -46,3 +46,34 @@ input:focus {
   padding: 0;
   font-weight: 500;
 }
+
+// Schedule
+.schedule {
+  background-color: #90c6ff;
+  color: #002c5a;
+  padding: 1rem;
+  border-radius: 15px;
+}
+table {
+  width: 100%;
+}
+th {
+  text-align: center;
+}
+td, tr:nth-last-child(9) {
+  border: 1px solid #658fc5;
+}
+.schedule-head {
+  margin: 0 1rem;
+}
+.bold {
+  font-weight: 600;
+}
+.slot {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin: 7px;
+  text-align: center;
+}
+
