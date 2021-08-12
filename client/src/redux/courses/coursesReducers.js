@@ -122,7 +122,6 @@ const reducer = (state = initialState, action) => {
         }
       );
       newSection.sectionNumber = payload.newSectionNumber;
-      console.log(newSection);
 
       newCourses[payload.courseIndex].body.push(newSection);
 
@@ -386,17 +385,9 @@ const reducer = (state = initialState, action) => {
         }
       );
       newLab.labPrefix = payload.prefix;
-      newCourses[payload.courseIndex].body[payload.sectionIndex].labs.push({
-        labName: "",
-        labPrefix: "1A",
-        ta: "",
-        slots: [
-          {
-            day: 0,
-            slot: [0, 1],
-          },
-        ],
-      });
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs.push(
+        newLab
+      );
 
       return {
         ...state,

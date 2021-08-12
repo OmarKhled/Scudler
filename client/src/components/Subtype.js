@@ -31,7 +31,8 @@ const Subtype = ({
 }) => {
   const dispatch = useDispatch();
 
-  const subtypeType = type == "tutorial" ? "Tutorial" : type === "lab" && "Lab";
+  const subtypeType =
+    type === "tutorial" ? "Tutorial" : type === "lab" && "Lab";
 
   const { sectionNumber } = useSelector((state) => state.courses).courses[
     courseIndex
@@ -225,7 +226,7 @@ const Subtype = ({
           <p className="mb-1">{subtypeType} Prefix:</p>
           <Form.Select
             id="prefixes"
-            value={subtypePrefix === "" ? `${sectionNumber}A` : subtypePrefix}
+            value={subtypePrefix}
             onChange={onChangePrefix}
             style={{ width: "max-content" }}
           >

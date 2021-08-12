@@ -3,16 +3,24 @@ import colors from "colors";
 import dotenv from "dotenv";
 import path from "path";
 
+import schedulesRoutes from "./routes/schedulesRoutes.js";
+
 dotenv.config();
 
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Schedule actions
+app.use("/schedules", schedulesRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, "/client/build")));
 
   app.get("*", (req, res, next) => {
-    console.log("Production")
+    console.log("Production");
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 } else {
