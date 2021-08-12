@@ -39,10 +39,11 @@ const Slot = ({
 
   const onDelete = () => {
     switch (type) {
-      case "lecture":
+      case "lecture": {
         dispatch(deleteLectureSlot(sectionIndex, courseIndex, slotIndex));
         break;
-      case "tutorial":
+      }
+      case "tutorial": {
         dispatch(
           deleteTutorialSlot(
             sectionIndex,
@@ -51,11 +52,14 @@ const Slot = ({
             tutorialIndex
           )
         );
-      case "lab":
+        break;
+      }
+      case "lab": {
         dispatch(
           deleteLabSlot(sectionIndex, courseIndex, slotIndex, tutorialIndex)
         );
         break;
+      }
       default:
         break;
     }

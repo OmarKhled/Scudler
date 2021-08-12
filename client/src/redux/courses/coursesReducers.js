@@ -1,13 +1,4 @@
 import {
-  courseTemplate,
-  initialTemplate,
-  labTemplate,
-  sectionTemplate,
-  slotTemplate,
-  tutorialTemplate,
-} from "../../templates";
-
-import {
   COURSE_NAME_CHANGE,
   ADD_NEW_SECTION,
   DELETE_SECTION,
@@ -37,17 +28,43 @@ import {
   DELETE_COURSE,
 } from "../types/coursesTypes";
 
+import { initialTemplate } from "../../templates";
+
 const initialState = {
   courses: initialTemplate,
 };
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
-  let newCourses = state.courses;
+  let newCourses = state.courses.slice();
 
   switch (type) {
     case ADD_COURSE: {
-      newCourses.push(Object.assign({}, courseTemplate));
+      newCourses.push(
+        Object.assign(
+          {},
+          {
+            courseName: "DEMO",
+            body: [
+              {
+                sectionNumber: 1,
+                lecture: {
+                  lectureName: "",
+                  professor: "",
+                  slots: [
+                    {
+                      day: 2,
+                      slot: [0, 3],
+                    },
+                  ],
+                },
+                tutorial: [],
+                labs: [],
+              },
+            ],
+          }
+        )
+      );
 
       return {
         ...state,
@@ -56,7 +73,6 @@ const reducer = (state = initialState, action) => {
     }
 
     case DELETE_COURSE: {
-      console.log(payload.courseIndex);
       newCourses = newCourses.filter(
         (course, index) => index !== payload.courseIndex
       );
@@ -87,8 +103,26 @@ const reducer = (state = initialState, action) => {
         payload.newSectionNumber++;
       }
       // Adding the new section
-      const newSection = Object.assign({}, sectionTemplate);
+      const newSection = Object.assign(
+        {},
+        {
+          sectionNumber: 1,
+          lecture: {
+            lectureName: "",
+            professor: "",
+            slots: [
+              {
+                day: 2,
+                slot: [0, 1],
+              },
+            ],
+          },
+          tutorial: [],
+          labs: [],
+        }
+      );
       newSection.sectionNumber = payload.newSectionNumber;
+      console.log(newSection);
 
       newCourses[payload.courseIndex].body.push(newSection);
 
@@ -190,7 +224,10 @@ const reducer = (state = initialState, action) => {
       // Adding slot
       newCourses[payload.courseIndex].body[
         payload.sectionIndex
-      ].lecture.slots.push(slotTemplate);
+      ].lecture.slots.push({
+        day: 2,
+        slot: [0, 1],
+      });
 
       return {
         ...state,
@@ -307,7 +344,20 @@ const reducer = (state = initialState, action) => {
 
     case ADD_TUTORIAL: {
       // Add Tutorial
-      const newTutorial = Object.assign({}, tutorialTemplate);
+      const newTutorial = Object.assign(
+        {},
+        {
+          tutorialName: "",
+          tutorialPrefix: "",
+          ta: "",
+          slots: [
+            {
+              day: 0,
+              slot: [0, 1],
+            },
+          ],
+        }
+      );
       newTutorial.tutorialPrefix = payload.prefix;
       newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial.push(
         newTutorial
@@ -321,11 +371,32 @@ const reducer = (state = initialState, action) => {
 
     case ADD_LAB: {
       // Add Lab
-      const newLab = Object.assign({}, labTemplate);
-      newLab.labPrefix = payload.prefix;
-      newCourses[payload.courseIndex].body[payload.sectionIndex].labs.push(
-        newLab
+      const newLab = Object.assign(
+        {},
+        {
+          labName: "",
+          labPrefix: "1A",
+          ta: "",
+          slots: [
+            {
+              day: 0,
+              slot: [0, 1],
+            },
+          ],
+        }
       );
+      newLab.labPrefix = payload.prefix;
+      newCourses[payload.courseIndex].body[payload.sectionIndex].labs.push({
+        labName: "",
+        labPrefix: "1A",
+        ta: "",
+        slots: [
+          {
+            day: 0,
+            slot: [0, 1],
+          },
+        ],
+      });
 
       return {
         ...state,
@@ -337,7 +408,10 @@ const reducer = (state = initialState, action) => {
       // Adding slot
       newCourses[payload.courseIndex].body[payload.sectionIndex].tutorial[
         payload.tutorialIndex
-      ].slots.push(slotTemplate);
+      ].slots.push({
+        day: 2,
+        slot: [0, 1],
+      });
 
       return {
         ...state,
@@ -378,7 +452,10 @@ const reducer = (state = initialState, action) => {
       // Adding slot
       newCourses[payload.courseIndex].body[payload.sectionIndex].labs[
         payload.labIndex
-      ].slots.push(slotTemplate);
+      ].slots.push({
+        day: 2,
+        slot: [0, 1],
+      });
 
       return {
         ...state,
