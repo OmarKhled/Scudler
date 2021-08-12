@@ -1,11 +1,10 @@
 import express from "express";
-import { courses } from "../courses.js";
 
 const router = express.Router();
 
 router.post("/", (req, res, next) => {
-  const courses = req.body.courses;
-
+  const data = req.body;
+  const courses = data.courses;
   const coursesPossibilities = [];
   courses.forEach((course) => {
     const possibilities = [];
@@ -33,6 +32,7 @@ router.post("/", (req, res, next) => {
                 slots: tut.slots,
                 ta: tut.ta,
               };
+              possibilities.push({ ...currentCombination });
             });
           } else {
             currentCombination.lab = {};
@@ -41,8 +41,8 @@ router.post("/", (req, res, next) => {
               slots: tut.slots,
               ta: tut.ta,
             };
+            possibilities.push({ ...currentCombination });
           }
-          possibilities.push({ ...currentCombination });
         });
       } else {
         if (labs.length > 0) {

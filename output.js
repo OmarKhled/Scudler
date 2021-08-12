@@ -335,4 +335,518 @@
       lab: {},
     },
   ],
+  [
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 1",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 1A",
+        slots: [
+          {
+            day: 1,
+            slot: [2, 3],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 1A",
+        slots: [
+          {
+            day: 4,
+            slot: [4, 5],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 1",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 1A",
+        slots: [
+          {
+            day: 1,
+            slot: [2, 3],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 1B",
+        slots: [
+          {
+            day: 4,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 1",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 1B",
+        slots: [
+          {
+            day: 0,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Marwa El Badawy",
+      },
+      lab: {
+        name: "PHYS002 - Lab 1A",
+        slots: [
+          {
+            day: 4,
+            slot: [4, 5],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 1",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 1B",
+        slots: [
+          {
+            day: 0,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Marwa El Badawy",
+      },
+      lab: {
+        name: "PHYS002 - Lab 1B",
+        slots: [
+          {
+            day: 4,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 2",
+        slots: [
+          {
+            day: 1,
+            slot: [5, 6],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 2A",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 2A",
+        slots: [
+          {
+            day: 3,
+            slot: [5, 6],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 2",
+        slots: [
+          {
+            day: 1,
+            slot: [5, 6],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 2A",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 2B",
+        slots: [
+          {
+            day: 3,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 2",
+        slots: [
+          {
+            day: 1,
+            slot: [5, 6],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 2B",
+        slots: [
+          {
+            day: 0,
+            slot: [2, 3],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 2A",
+        slots: [
+          {
+            day: 3,
+            slot: [5, 6],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 2",
+        slots: [
+          {
+            day: 1,
+            slot: [5, 6],
+          },
+        ],
+        professor: "Yasser El-Batawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 2B",
+        slots: [
+          {
+            day: 0,
+            slot: [2, 3],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 2B",
+        slots: [
+          {
+            day: 3,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 3",
+        slots: [
+          {
+            day: 2,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 3A",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        ta: "Marwa Mohamed",
+      },
+      lab: {
+        name: "PHYS002 - Lab 3A",
+        slots: [
+          {
+            day: 4,
+            slot: [6, 7],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 3",
+        slots: [
+          {
+            day: 2,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 3A",
+        slots: [
+          {
+            day: 0,
+            slot: [4, 5],
+          },
+        ],
+        ta: "Marwa Mohamed",
+      },
+      lab: {
+        name: "PHYS002 - Lab 3B",
+        slots: [
+          {
+            day: 2,
+            slot: [6, 7],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 3",
+        slots: [
+          {
+            day: 2,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 3B",
+        slots: [
+          {
+            day: 1,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 3A",
+        slots: [
+          {
+            day: 4,
+            slot: [6, 7],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 3",
+        slots: [
+          {
+            day: 2,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 3B",
+        slots: [
+          {
+            day: 1,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Rawan Edris",
+      },
+      lab: {
+        name: "PHYS002 - Lab 3B",
+        slots: [
+          {
+            day: 2,
+            slot: [6, 7],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 4",
+        slots: [
+          {
+            day: 3,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 4A",
+        slots: [
+          {
+            day: 0,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Amany Mostafa",
+      },
+      lab: {
+        name: "PHYS002 - Lab 4A",
+        slots: [
+          {
+            day: 1,
+            slot: [5, 6],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 4",
+        slots: [
+          {
+            day: 3,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 4A",
+        slots: [
+          {
+            day: 0,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Amany Mostafa",
+      },
+      lab: {
+        name: "PHYS002 - Lab 4B",
+        slots: [
+          {
+            day: 2,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 4",
+        slots: [
+          {
+            day: 3,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 4B",
+        slots: [
+          {
+            day: 1,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Amany Mostafa",
+      },
+      lab: {
+        name: "PHYS002 - Lab 4A",
+        slots: [
+          {
+            day: 1,
+            slot: [5, 6],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+    {
+      lecture: {
+        name: "PHYS002 Lecture - Section 4",
+        slots: [
+          {
+            day: 3,
+            slot: [0, 1],
+          },
+        ],
+        professor: "Amr Essawy",
+      },
+      tutorial: {
+        name: "PHYS002 - Tutorial 4B",
+        slots: [
+          {
+            day: 1,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Amany Mostafa",
+      },
+      lab: {
+        name: "PHYS002 - Lab 4B",
+        slots: [
+          {
+            day: 2,
+            slot: [0, 1],
+          },
+        ],
+        ta: "Mohamed Ibrahim",
+      },
+    },
+  ],
 ];

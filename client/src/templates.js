@@ -317,6 +317,255 @@ export const initialTemplate = [
       },
     ],
   },
+  {
+    courseName: "PHYS002",
+    body: [
+      {
+        sectionNumber: 1,
+        lecture: {
+          lectureName: "PHYS002 Lecture - Section 1",
+          professor: "Yasser El-Batawy",
+          slots: [
+            {
+              day: 0,
+              slot: [4, 5],
+            },
+          ],
+        },
+        tutorial: [
+          {
+            tutorialName: "PHYS002 - Tutorial 1A",
+            tutorialPrefix: "1A",
+            ta: "Rawan Edris",
+            slots: [
+              {
+                day: 1,
+                slot: [2, 3],
+              },
+            ],
+          },
+          {
+            tutorialName: "PHYS002 - Tutorial 1B",
+            tutorialPrefix: "1B",
+            ta: "Marwa El Badawy",
+            slots: [
+              {
+                day: 0,
+                slot: [0, 1],
+              },
+            ],
+          },
+        ],
+        labs: [
+          {
+            labName: "PHYS002 - Lab 1A",
+            labPrefix: "1A",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 4,
+                slot: [4, 5],
+              },
+            ],
+          },
+          {
+            labName: "PHYS002 - Lab 1B",
+            labPrefix: "1B",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 4,
+                slot: [0, 1],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        sectionNumber: 2,
+        lecture: {
+          lectureName: "PHYS002 Lecture - Section 2",
+          professor: "Yasser El-Batawy",
+          slots: [
+            {
+              day: 1,
+              slot: [5, 6],
+            },
+          ],
+        },
+        tutorial: [
+          {
+            tutorialName: "PHYS002 - Tutorial 2A",
+            tutorialPrefix: "2A",
+            ta: "Rawan Edris",
+            slots: [
+              {
+                day: 0,
+                slot: [4, 5],
+              },
+            ],
+          },
+          {
+            tutorialName: "PHYS002 - Tutorial 2B",
+            tutorialPrefix: "2B",
+            ta: "Rawan Edris",
+            slots: [
+              {
+                day: 0,
+                slot: [2, 3],
+              },
+            ],
+          },
+        ],
+        labs: [
+          {
+            labName: "PHYS002 - Lab 2A",
+            labPrefix: "2A",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 3,
+                slot: [5, 6],
+              },
+            ],
+          },
+          {
+            labName: "PHYS002 - Lab 2B",
+            labPrefix: "2B",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 3,
+                slot: [0, 1],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        sectionNumber: 3,
+        lecture: {
+          lectureName: "PHYS002 Lecture - Section 3",
+          professor: "Amr Essawy",
+          slots: [
+            {
+              day: 2,
+              slot: [0, 1],
+            },
+          ],
+        },
+        tutorial: [
+          {
+            tutorialName: "PHYS002 - Tutorial 3A",
+            tutorialPrefix: "3A",
+            ta: "Marwa Mohamed",
+            slots: [
+              {
+                day: 0,
+                slot: [4, 5],
+              },
+            ],
+          },
+          {
+            tutorialName: "PHYS002 - Tutorial 3B",
+            tutorialPrefix: "3B",
+            ta: "Rawan Edris",
+            slots: [
+              {
+                day: 1,
+                slot: [0, 1],
+              },
+            ],
+          },
+        ],
+        labs: [
+          {
+            labName: "PHYS002 - Lab 3A",
+            labPrefix: "3A",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 4,
+                slot: [6, 7],
+              },
+            ],
+          },
+          {
+            labName: "PHYS002 - Lab 3B",
+            labPrefix: "3B",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 2,
+                slot: [6, 7],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        sectionNumber: 4,
+        lecture: {
+          lectureName: "PHYS002 Lecture - Section 4",
+          professor: "Amr Essawy",
+          slots: [
+            {
+              day: 3,
+              slot: [0, 1],
+            },
+          ],
+        },
+        tutorial: [
+          {
+            tutorialName: "PHYS002 - Tutorial 4A",
+            tutorialPrefix: "4A",
+            ta: "Amany Mostafa",
+            slots: [
+              {
+                day: 0,
+                slot: [0, 1],
+              },
+            ],
+          },
+          {
+            tutorialName: "PHYS002 - Tutorial 4B",
+            tutorialPrefix: "4B",
+            ta: "Amany Mostafa",
+            slots: [
+              {
+                day: 1,
+                slot: [0, 1],
+              },
+            ],
+          },
+        ],
+        labs: [
+          {
+            labName: "PHYS002 - Lab 4A",
+            labPrefix: "4A",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 1,
+                slot: [5, 6],
+              },
+            ],
+          },
+          {
+            labName: "PHYS002 - Lab 4B",
+            labPrefix: "4B",
+            ta: "Mohamed Ibrahim",
+            slots: [
+              {
+                day: 2,
+                slot: [0, 1],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export const sectionTemplate = Object.assign(

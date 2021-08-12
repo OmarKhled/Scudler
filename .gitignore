@@ -16,6 +16,8 @@ yarn.lock
 # testing
 /coverage
 templates.js
+courses.js
+output.js
 
 # production
 /build

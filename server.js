@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Schedule actions
-app.use("/schedules", schedulesRoutes);
+app.use("/api/schedules", schedulesRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
