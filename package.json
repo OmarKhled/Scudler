@@ -1,0 +1,30 @@
+{
+  "name": "scudler",
+  "version": "1.0.0",
+  "description": "Web app to organize aademic regestration",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "clientBuild": "npm run build --prefix client",
+    "clientInstall": "npm i --prefix client",
+    "dev": "concurrently \" npm run server \" \" npm run client \"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false CI=false npm run clientInstall && npm run build --prefix client"
+  },
+  "author": "Omar Khaled",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7",
+    "node-sass": "^6.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1",
+    "nodemon": "^2.0.12"
+  }
+}
