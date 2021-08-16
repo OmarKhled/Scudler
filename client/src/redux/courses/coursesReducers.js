@@ -1,7 +1,4 @@
-const coursesReducer = (
-  state = { courses: [], loading: false, alerts: [] },
-  action
-) => {
+const coursesReducer = (state = { courses: [] }, action) => {
   // eslint-disable-next-line
   const { type, payload } = action;
 

@@ -1,11 +1,22 @@
 import express from "express";
 import colors from "colors";
-
 import dotenv from "dotenv";
+
+import coursesRoutes from "./routes/coursesRoutes.js";
+import scheduleRoutes from "./routes/scheduleRoutes.js";
+import connectDB from "./config/db.js";
 
 dotenv.config();
 
+connectDB();
+
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use("/api/courses", coursesRoutes);
+app.use("/api/schedules", scheduleRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();

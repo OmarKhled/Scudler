@@ -36,6 +36,10 @@ ul {
   list-style: none;
 }
 
+::placeholder {
+  text-transform: none;
+}
+
 // Home
 .home {
   color: #333;
@@ -64,7 +68,6 @@ ul {
     border-radius: .25rem .25rem 0 0;
 }
 .results {
-  margin-top: -.4px;
   max-height: 102px;
   width: 100%;
   top: 38px;

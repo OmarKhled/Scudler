@@ -1,10 +1,76 @@
 import React from "react";
 import { Accordion, Form, Button, FormLabel } from "react-bootstrap";
 import { FaTrashAlt } from "react-icons/fa";
-import { courses } from "../courses";
+
+import { useSelector, useDispatch } from "react-redux";
+import { removeCourse } from "../redux/addedCourses/addedCoursesActions";
+import { editCourses } from "../redux/finalCourses/finalCoursesActions";
 
 const Courses = () => {
-  const addedCourses = courses;
+  const dispatch = useDispatch();
+
+  const { addedCourses } = useSelector((state) => state.addedCourses);
+  const { finalCourses } = useSelector((state) => state.finalCourses);
+
+  const onDelete = (course) => {
+    dispatch(removeCourse(course));
+
+    const courses = finalCourses.filter(
+      (finalCourse) => finalCourse.courseName !== course.courseName
+    );
+    dispatch(editCourses(courses));
+  };
+
+  const onToggleProfessor = (course, professor, e) => {
+    const professorSections = course.body
+      .filter((section) => section.lecture.professor === professor)
+      .slice();
+    let courses = [];
+    if (e.target.checked) {
+      if (
+        finalCourses.find(
+          (finalCourse) => finalCourse.courseName === course.courseName
+        )
+      ) {
+        courses = finalCourses
+          .map((finalCourse) => {
+            if (finalCourse.courseName === course.courseName) {
+              const newBody = finalCourse.body.slice();
+              newBody.push(...professorSections);
+              return {
+                ...finalCourse,
+                body: newBody,
+              };
+            } else {
+              return finalCourse;
+            }
+          })
+          .slice();
+      } else {
+        courses = [...finalCourses.slice()];
+        const newCourse = Object.assign({}, { ...course });
+        newCourse.body = professorSections;
+        courses.push(newCourse);
+      }
+    } else {
+      courses = finalCourses.map((finalCourse) => {
+        if (finalCourse.courseName === course.courseName) {
+          const newBody = finalCourse.body
+            .slice()
+            .filter((section) => section.lecture.professor !== professor);
+          return {
+            ...finalCourse,
+            body: newBody,
+          };
+        } else {
+          return finalCourse;
+        }
+      });
+      courses = courses.filter((finalCourse) => finalCourse.body.length > 0);
+    }
+    dispatch(editCourses(courses));
+  };
+
   return (
     <div className="courses">
       <div className="d-flex justify-content-center mb-3">
@@ -13,15 +79,12 @@ const Courses = () => {
       {addedCourses.length > 0 && (
         <Accordion>
           {addedCourses.map((course, index) => (
-            <Accordion.Item eventKey={index}>
+            <Accordion.Item key={index} eventKey={index}>
               <Accordion.Header>{course.courseName}</Accordion.Header>
               <Accordion.Body>
                 <div className="d-flex justify-content-between align-items-center">
                   <h4>{course.courseName}</h4>
-                  <Button
-                    // onClick={() => onDelete(course.courseName)}
-                    variant="danger"
-                  >
+                  <Button onClick={() => onDelete(course)} variant="danger">
                     <FaTrashAlt />
                   </Button>
                 </div>
@@ -36,10 +99,27 @@ const Courses = () => {
                       className="d-flex gap-2 align-items-center"
                     >
                       <Form.Check
-                        type="checkbox"
-                        // onChange={(e) =>
-                        //   onToggleProfessor(e, professor, course)
-                        // }
+                        checked={
+                          finalCourses.find(
+                            (finalCourse) =>
+                              finalCourse.courseName === course.courseName
+                          )
+                            ? finalCourses
+                                .find(
+                                  (finalCourse) =>
+                                    finalCourse.courseName === course.courseName
+                                )
+                                .body.map((section) =>
+                                  section.lecture.professor === professor
+                                    ? true
+                                    : false
+                                )
+                                .includes(true)
+                            : false
+                        }
+                        onChange={(e) =>
+                          onToggleProfessor(course, professor, e)
+                        }
                       />{" "}
                       <span>Dr. {professor}</span>
                     </FormLabel>
