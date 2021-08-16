@@ -1,6 +1,7 @@
 import express from "express";
 import colors from "colors";
 import dotenv from "dotenv";
+import path from "path";
 
 import coursesRoutes from "./routes/coursesRoutes.js";
 import scheduleRoutes from "./routes/scheduleRoutes.js";
