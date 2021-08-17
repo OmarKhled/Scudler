@@ -1,9 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-// import { schedule } from "../courses";
+import { Modal, Spinner } from "react-bootstrap";
 import _ from "lodash";
 
-const Schedule = ({ className, schedule }) => {
+import { useSelector } from "react-redux";
+
+const Schedule = ({ className }) => {
+  const { schedules, loading } = useSelector((state) => state.schedules);
+
+  let modifiedSchedules = schedules.map((schedule) => schedule.schedule);
+
   const [show, setShow] = useState(false);
   const [currentCourse, setCurrentCourse] = useState({});
   const handleClose = () => setShow(false);
@@ -78,48 +83,63 @@ const Schedule = ({ className, schedule }) => {
           </>
         )}
       </Modal>
-      <div className="schedule-container">
-        <div className={"schedule " + className}>
-          <div className="times">
-            <ul>
-              {times.map((time, index) => (
-                <li
-                  key={index}
-                  className={`time-indecator ${
-                    index === 0 ? "shrink" : "expand"
-                  }`}
-                >
-                  <small>{time}</small>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="schedule-body">
-            {schedule.map((day, index) => (
-              <ul className="schedule-column" key={index}>
-                <li className="day-cell">{days[index]}</li>
-                {day.map((slot, index) =>
-                  slot.length > 0 ? (
-                    <li key={index} className="slot-container">
-                      <div onClick={() => handleShow(slot[0])} className="slot">
-                        {slot[0].name}
-                      </div>
-                    </li>
-                  ) : (
-                    <li key={index} className="slot-container"></li>
-                  )
-                )}
-              </ul>
-            ))}
-          </div>
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center mt-5">
+          <Spinner animation="grow" variant="info" />
         </div>
-        <div className="schedule-tail">
-          <div className="type">
-            <div className="registered-circle"></div>
-            <span>No worries dude, you are always ready to register!</span>
-          </div>
-        </div>
-      </div>
+      ) : (
+        <>
+          {modifiedSchedules.map((schedule) => (
+            <div className="schedule-container">
+              <div className={"schedule " + className}>
+                <div className="times">
+                  <ul>
+                    {times.map((time, index) => (
+                      <li
+                        key={index}
+                        className={`time-indecator ${
+                          index === 0 ? "shrink" : "expand"
+                        }`}
+                      >
+                        <small>{time}</small>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="schedule-body">
+                  {schedule.map((day, index) => (
+                    <ul className="schedule-column" key={index}>
+                      <li className="day-cell">{days[index]}</li>
+                      {day.map((slot, index) =>
+                        slot.length > 0 ? (
+                          <li key={index} className="slot-container">
+                            <div
+                              onClick={() => handleShow(slot[0])}
+                              className="slot"
+                            >
+                              {slot[0].name}
+                            </div>
+                          </li>
+                        ) : (
+                          <li key={index} className="slot-container"></li>
+                        )
+                      )}
+                    </ul>
+                  ))}
+                </div>
+              </div>
+              <div className="schedule-tail">
+                <div className="type">
+                  <div className="registered-circle"></div>
+                  <span>
+                    No worries dude, you are always ready to register!
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </Fragment>
   );
 };

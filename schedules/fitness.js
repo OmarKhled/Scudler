@@ -57,6 +57,17 @@ export const fitness = (courses, options) => {
         if (onlineDay) fit++;
       });
     }
+    if (options.sortUponLastFreeSlots) {
+      [6, 7, 8].forEach((slot) => {
+        let free = true;
+        map.forEach((day) => {
+          if (day[slot].length > 0) {
+            free = false;
+          }
+        });
+        if (free) fit++;
+      });
+    }
   }
   return { fit, schedule: map };
 };
