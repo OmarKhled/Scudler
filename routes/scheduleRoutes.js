@@ -12,11 +12,20 @@ router.post("/", (req, res, next) => {
 
   const coursesPossibilities = getCombinations(courses);
 
-  // console.log(coursesPossibilities);
+  let length = 0;
+  coursesPossibilities.forEach((course) => course.forEach((poss) => length++));
+  console.log(length);
 
-  const schedules = getSchedule(10000, coursesPossibilities);
+  const schedules = getSchedule(
+    coursesPossibilities.length === 1
+      ? Math.ceil(Math.pow(length, 1))
+      : coursesPossibilities.length === 2
+      ? Math.ceil(Math.pow(length, 2.1))
+      : coursesPossibilities.length === 3 && Math.ceil(Math.pow(length, 2.5)),
+    coursesPossibilities
+  );
 
-  console.log("schedules");
+  console.log(schedules.length);
 
   res.json({ schedules });
 });
