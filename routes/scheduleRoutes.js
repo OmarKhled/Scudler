@@ -9,6 +9,7 @@ router.post("/", (req, res, next) => {
   const data = req.body;
   // console.log(data);
   const courses = data.courses;
+  const options = data.options;
 
   const coursesPossibilities = getCombinations(courses);
 
@@ -22,7 +23,8 @@ router.post("/", (req, res, next) => {
       : coursesPossibilities.length === 2
       ? Math.ceil(Math.pow(length, 2.1))
       : coursesPossibilities.length === 3 && Math.ceil(Math.pow(length, 2.5)),
-    coursesPossibilities
+    coursesPossibilities,
+    options
   );
 
   console.log(schedules.length);

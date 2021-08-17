@@ -38,7 +38,7 @@ const Schedule = ({ className, schedule }) => {
       >
         {!_.isEmpty(currentCourse) && (
           <>
-            <Modal.Header closeButton className="modal-header">
+            <Modal.Header closeButton className="register-modal-header">
               <div>
                 <Modal.Title className="modal-title">
                   {currentCourse.name.split(" ")[0]}

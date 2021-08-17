@@ -2,7 +2,7 @@ import _ from "lodash";
 
 const TYPES = ["lecture", "lab", "tutorial"];
 
-export const fitness = (courses) => {
+export const fitness = (courses, options) => {
   let map = [
     /* 0   1   2   3   4   5   6   7,  8 */
     [[], [], [], [], [], [], [], [], []], // Sunday   0
@@ -37,15 +37,26 @@ export const fitness = (courses) => {
       }
     });
   });
-  // Empty days
   if (fit === 0) {
-    map.forEach((day) => {
-      let emptyDay = true;
-      day.forEach((slot) => {
-        if (slot.length > 0) emptyDay = false;
+    // Empty days
+    if (options.sortUponFreeDays) {
+      map.forEach((day) => {
+        let emptyDay = true;
+        day.forEach((slot) => {
+          if (slot.length > 0) emptyDay = false;
+        });
+        if (emptyDay) fit++;
       });
-      if (emptyDay) fit++;
-    });
+    }
+    if (options.sortUponOnlineDays) {
+      map.forEach((day) => {
+        let onlineDay = true;
+        day.forEach((slot) => {
+          if (slot.length > 0 && !slot[0].online) onlineDay = false;
+        });
+        if (onlineDay) fit++;
+      });
+    }
   }
   return { fit, schedule: map };
 };

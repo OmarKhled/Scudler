@@ -5,7 +5,7 @@ const getRandonInt = (max) => {
   return Math.floor(Math.random() * max);
 };
 
-export const getSchedule = (rounds, combinations) => {
+export const getSchedule = (rounds, combinations, options) => {
   // console.log("");
   let schedules = [];
 
@@ -16,8 +16,8 @@ export const getSchedule = (rounds, combinations) => {
       courses.push(course[getRandonInt(course.length)]);
     });
 
-    if (fitness(courses).fit >= 0) {
-      const newSchedule = fitness(courses);
+    if (fitness(courses, options).fit >= 0) {
+      const newSchedule = fitness(courses, options);
       let exist = false;
       schedules.forEach((schedule) => {
         if (compareMaps(schedule.schedule, newSchedule.schedule)) {
