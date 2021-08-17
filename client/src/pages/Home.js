@@ -20,8 +20,10 @@ const Home = () => {
       return;
     }
     const res = await axios.post("/api/schedules", { courses: finalCourses });
-    console.log(res);
-    dispatch(setSchedules(res.data.schedules));
+    console.log(res.data.schedules);
+    const newSchedules = res.data.schedules.slice(0, 50);
+    console.log(newSchedules);
+    dispatch(setSchedules(newSchedules));
   };
 
   return (

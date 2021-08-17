@@ -19,6 +19,7 @@ templates.js
 
 # production
 /build
+outputs.js
 
 # misc
 .DS_Store
