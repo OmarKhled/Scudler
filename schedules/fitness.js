@@ -21,6 +21,8 @@ export const fitness = (courses) => {
               name: course[type].name,
               instructor: course[type].instructor,
               type,
+              online: course[type].online,
+              slots: course[type].slots,
             });
           });
         });
@@ -31,7 +33,7 @@ export const fitness = (courses) => {
   map.forEach((day) => {
     day.forEach((slot) => {
       if (slot.length > 1) {
-        fit++;
+        fit--;
       }
     });
   });

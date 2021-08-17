@@ -163,6 +163,8 @@ ul {
   text-overflow: ellipsis;
   max-width: 80%;
   box-shadow: 0 0.125rem 0.3rem 0 rgba(0, 0, 0, 0.3%);
+  cursor: pointer;
+  user-select: none;
 }
 .schedule-tail {
   background: #f4f4f4;
@@ -179,4 +181,69 @@ ul {
   background: rgb(0, 180, 171);
   padding: 15px;
   border-radius: 50%;
+}
+// Slot information
+.modal {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+}
+.modal-content {
+  padding: 1.5rem;
+  margin-top: 3rem;
+}
+.modal-header {
+  border-bottom: #52bf96 1px solid;
+  align-items: flex-start;
+  padding: 0;
+  padding-bottom: 1rem;
+}
+.btn-close {
+  opacity: 0.9;
+  margin: 0;
+}
+.modal-title {
+  font-weight: 400;
+}
+.registered {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 1em;
+  display: block;
+  padding: 0.1rem 0.6rem;
+  color: #00804D;
+  background:#EAF7F2;
+  font-weight: 500;
+}
+.modal-body {
+  padding: 0;
+  padding-top: 0.7rem;
+}
+.info {
+  font-size: 0.8rem;
+}
+.modal-slot {
+  font-size: 0.8rem;
+  padding: 9px;
+  border: 1px #D9D9D9 solid;
+  margin-bottom: 7px;
+}
+.instructor-circle {
+  display: inline;
+  background: #BA46A6;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #fff;
+}
+.instructor {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0.5rem 0 0.5rem 0;
+  padding: 1rem;
+  background-color: #f1f1f1;
 }

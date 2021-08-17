@@ -9,6 +9,7 @@ export default (courses) => {
         name: lecture.lectureName,
         slots: lecture.slots,
         instructor: lecture.professor,
+        online: lecture.online,
       };
       currentCombination.lecture = currentLecture;
 
@@ -20,11 +21,13 @@ export default (courses) => {
                 name: lab.labName,
                 slots: lab.slots,
                 instructor: lab.ta,
+                online: lab.online,
               };
               currentCombination.tutorial = {
                 name: tut.tutorialName,
                 slots: tut.slots,
                 instructor: tut.ta,
+                online: tut.online,
               };
               possibilities.push({ ...currentCombination });
             });
@@ -34,6 +37,7 @@ export default (courses) => {
               name: tut.tutorialName,
               slots: tut.slots,
               instructor: tut.ta,
+              online: tut.online,
             };
             possibilities.push({ ...currentCombination });
           }
@@ -46,6 +50,7 @@ export default (courses) => {
               name: lab.labName,
               slots: lab.slots,
               instructor: lab.ta,
+              online: lab.online,
             };
             possibilities.push({ ...currentCombination });
           });

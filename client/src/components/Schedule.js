@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
-import { Button } from "react-bootstrap";
+import React, { Fragment, useEffect, useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 // import { schedule } from "../courses";
 import axios from "axios";
+import _ from "lodash";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setSchedule } from "../redux/schedule/scheduleActions";
@@ -11,6 +12,14 @@ const Schedule = ({ className }) => {
 
   const { finalCourses } = useSelector((state) => state.finalCourses);
   const { schedule } = useSelector((state) => state.schedule);
+
+  const [show, setShow] = useState(false);
+  const [currentCourse, setCurrentCourse] = useState({});
+  const handleClose = () => setShow(false);
+  const handleShow = (course) => {
+    setCurrentCourse(course);
+    setShow(true);
+  };
 
   const days = ["Sunday", "Monday", "Tuesday", "Wendsday", "Thrusday"];
   const times = [
@@ -34,8 +43,60 @@ const Schedule = ({ className }) => {
     const res = await axios.post("/api/schedules", { courses: finalCourses });
     dispatch(setSchedule(res.data.schedule));
   };
+
+  useEffect(() => {
+    console.log(currentCourse);
+  }, [currentCourse]);
   return (
     <Fragment>
+      <Modal
+        // centered
+        show={show}
+        onHide={handleClose}
+        style={{ paddingRight: "0", paddingLeft: "0" }}
+      >
+        {!_.isEmpty(currentCourse) && (
+          <>
+            <Modal.Header closeButton className="modal-header">
+              <div>
+                <Modal.Title className="modal-title">
+                  {currentCourse.name.split(" ")[0]}
+                </Modal.Title>
+                <div className="registered">Registered</div>
+              </div>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="info">
+                <p>
+                  Section: {_.last(currentCourse.name.split(" "))} | subtype:{" "}
+                  {_.capitalize(currentCourse.type)}
+                </p>
+              </div>
+              <div>
+                Instructors
+                <div className="instructor">
+                  <span className="instructor-circle">
+                    {currentCourse.instructor[0]}
+                  </span>
+                  <p>{currentCourse.instructor}</p>
+                </div>
+              </div>
+              <p className="mb-1">Schedule</p>
+              {currentCourse.slots.map((slot) => {
+                return slot.slot.map((time) => (
+                  <div className="modal-slot">
+                    <p>
+                      {times[time + 1]} - {times[time + 2]}
+                    </p>
+                    <p>{days[slot.day]}</p>
+                    <p>{currentCourse.online ? "Online" : "Offline"}</p>
+                  </div>
+                ));
+              })}
+            </Modal.Body>
+          </>
+        )}
+      </Modal>
       <div className="schedule-container">
         <div className={"schedule " + className}>
           <div className="times">
@@ -59,7 +120,9 @@ const Schedule = ({ className }) => {
                 {day.map((slot, index) =>
                   slot.length > 0 ? (
                     <li key={index} className="slot-container">
-                      <div className="slot">{slot[0].name}</div>
+                      <div onClick={() => handleShow(slot[0])} className="slot">
+                        {slot[0].name}
+                      </div>
                     </li>
                   ) : (
                     <li key={index} className="slot-container"></li>
