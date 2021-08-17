@@ -37,5 +37,15 @@ export const fitness = (courses) => {
       }
     });
   });
+  // Empty days
+  if (fit === 0) {
+    map.forEach((day) => {
+      let emptyDay = true;
+      day.forEach((slot) => {
+        if (slot.length > 0) emptyDay = false;
+      });
+      if (emptyDay) fit++;
+    });
+  }
   return { fit, schedule: map };
 };

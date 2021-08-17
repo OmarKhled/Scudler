@@ -1,4 +1,4 @@
-import { SET_SCHEDULE } from "../types/schedulesTypes";
+import { SET_SCHEDULES } from "../types/schedulesTypes";
 
 const map = [
   /* 0   1   2   3   4   5   6   7,  8 */
@@ -9,14 +9,17 @@ const map = [
   [[], [], [], [], [], [], [], [], []], // Thursday 4
 ];
 
-const scheduleReducers = (state = { schedule: map }, action) => {
+const scheduleReducers = (
+  state = { schedules: [{ schedule: map }] },
+  action
+) => {
   const { type, payload } = action;
 
   switch (type) {
-    case SET_SCHEDULE: {
+    case SET_SCHEDULES: {
       return {
         ...state,
-        schedule: payload,
+        schedules: payload,
       };
     }
     default: {

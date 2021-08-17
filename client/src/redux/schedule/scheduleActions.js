@@ -1,8 +1,8 @@
-import { SET_SCHEDULE } from "../types/schedulesTypes";
+import { SET_SCHEDULES } from "../types/schedulesTypes";
 
-export const setSchedule = (schedule) => (dispatch) => {
+export const setSchedules = (schedules) => (dispatch) => {
   dispatch({
-    type: SET_SCHEDULE,
-    payload: schedule,
+    type: SET_SCHEDULES,
+    payload: schedules,
   });
 };

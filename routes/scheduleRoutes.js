@@ -7,14 +7,18 @@ const router = express.Router();
 
 router.post("/", (req, res, next) => {
   const data = req.body;
-  console.log(data);
+  // console.log(data);
   const courses = data.courses;
 
   const coursesPossibilities = getCombinations(courses);
 
-  const schedule = getSchedule(100000, coursesPossibilities);
+  // console.log(coursesPossibilities);
 
-  res.json({ schedule });
+  const schedules = getSchedule(10000, coursesPossibilities);
+
+  console.log("schedules");
+
+  res.json({ schedules });
 });
 
 export default router;

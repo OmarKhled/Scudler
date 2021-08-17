@@ -12,7 +12,7 @@ const reducers = combineReducers({
   courses: coursesReducer,
   addedCourses: addedCoursesReducers,
   finalCourses: finalCoursesReducers,
-  schedule: scheduleReducers,
+  schedules: scheduleReducers,
 });
 
 const middlewares = [thunk];

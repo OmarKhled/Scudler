@@ -731,3 +731,128 @@ export const schedule = [
     [],
   ],
 ];
+export const schedule2 = [
+  [
+    [
+      {
+        name: "PHYS002 - Tutorial 1B",
+        instructor: "Marwa El Badawy",
+        typa: "tutorial",
+      },
+    ],
+    [
+      {
+        name: "PHYS002 - Tutorial 1B",
+        instructor: "Marwa El Badawy",
+        type: "tutorial",
+      },
+    ],
+    [],
+    [],
+    [
+      {
+        name: "PHYS002 Lecture - Section 1",
+        instructor: "Yasser El-Batawy",
+        type: "lecture",
+      },
+    ],
+    [
+      {
+        name: "PHYS002 Lecture - Section 1",
+        instructor: "Yasser El-Batawy",
+        type: "lecture",
+      },
+    ],
+    [],
+    [],
+    [],
+  ],
+  [[], [], [], [], [], [], [], [], []],
+  [
+    [],
+    [],
+    [
+      {
+        name: "MATH002 Lecture - Section 2",
+        instructor: "Mohamed Wafa",
+        type: "lecture",
+      },
+    ],
+    [
+      {
+        name: "MATH002 Lecture - Section 2",
+        instructor: "Mohamed Wafa",
+        type: "lecture",
+      },
+    ],
+    [],
+    [
+      {
+        name: "ENGL003 Lecture - Section 4",
+        instructor: "Adham",
+        type: "lecture",
+      },
+    ],
+    [],
+    [],
+    [],
+  ],
+  [
+    [],
+    [],
+    [],
+    [
+      {
+        name: "ENGL003 Lecture - Section 4",
+        instructor: "Adham",
+        type: "lecture",
+      },
+    ],
+    [],
+    [
+      {
+        name: "MATH002 - Tutorial 2B",
+        instructor: "Menna Mohamed",
+        type: "tutorial",
+      },
+    ],
+    [
+      {
+        name: "MATH002 - Tutorial 2B",
+        instructor: "Menna Mohamed",
+        type: "tutorial",
+      },
+    ],
+    [],
+    [],
+  ],
+  [
+    [
+      {
+        name: "PHYS002 - Lab 1B",
+        instructor: "Mohamed Ibrahim",
+        type: "lab",
+      },
+    ],
+    [
+      {
+        name: "PHYS002 - Lab 1B",
+        instructor: "Mohamed Ibrahim",
+        type: "lab",
+      },
+    ],
+    [],
+    [],
+    [],
+    [
+      {
+        name: "ENGL003 Lecture - Section 4",
+        instructor: "Adham",
+        type: "lecture",
+      },
+    ],
+    [],
+    [],
+    [],
+  ],
+];

@@ -1,18 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 // import { schedule } from "../courses";
-import axios from "axios";
 import _ from "lodash";
 
-import { useSelector, useDispatch } from "react-redux";
-import { setSchedule } from "../redux/schedule/scheduleActions";
-
-const Schedule = ({ className }) => {
-  const dispatch = useDispatch();
-
-  const { finalCourses } = useSelector((state) => state.finalCourses);
-  const { schedule } = useSelector((state) => state.schedule);
-
+const Schedule = ({ className, schedule }) => {
   const [show, setShow] = useState(false);
   const [currentCourse, setCurrentCourse] = useState({});
   const handleClose = () => setShow(false);
@@ -35,15 +26,6 @@ const Schedule = ({ className }) => {
     "4:30 PM",
   ];
 
-  const onMakeSchedule = async () => {
-    if (finalCourses.length === 0) {
-      alert("Please add some courses and select professors");
-      return;
-    }
-    const res = await axios.post("/api/schedules", { courses: finalCourses });
-    dispatch(setSchedule(res.data.schedule));
-  };
-
   useEffect(() => {
     console.log(currentCourse);
   }, [currentCourse]);
@@ -53,7 +35,6 @@ const Schedule = ({ className }) => {
         // centered
         show={show}
         onHide={handleClose}
-        style={{ paddingRight: "0", paddingLeft: "0" }}
       >
         {!_.isEmpty(currentCourse) && (
           <>
@@ -138,11 +119,6 @@ const Schedule = ({ className }) => {
             <span>No worries dude, you are always ready to register!</span>
           </div>
         </div>
-      </div>
-      <div className="d-flex justify-content-center">
-        <Button variant="success" className="mt-3" onClick={onMakeSchedule}>
-          Generate Schedue
-        </Button>
       </div>
     </Fragment>
   );
