@@ -131,9 +131,7 @@ const Schedule = ({ className }) => {
               <div className="schedule-tail">
                 <div className="type">
                   <div className="registered-circle"></div>
-                  <span>
-                    No worries dude, you are always ready to register!
-                  </span>
+                  <span>You are always ready to register!</span>
                 </div>
               </div>
             </div>
