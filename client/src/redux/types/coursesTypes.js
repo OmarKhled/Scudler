@@ -31,3 +31,5 @@ export const CHANGE_LAB_NAME = "CHANGE_LAB_NAME";
 export const CHANGE_LAB_TA = "CHANGE_LAB_TA";
 export const DELETE_LAB = "DELETE_LAB";
 export const ADD_LAB = "ADD_LAB";
+
+export const CHANGE_ONLINE_STATE = "CHANGE_ONLINE_STATE";

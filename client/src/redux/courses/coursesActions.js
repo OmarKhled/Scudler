@@ -26,6 +26,7 @@ import {
   ADD_LAB_SLOT,
   ADD_COURSE,
   DELETE_COURSE,
+  CHANGE_ONLINE_STATE,
 } from "../types/coursesTypes";
 import _ from "lodash";
 
@@ -291,3 +292,11 @@ export const addLab =
       });
     }
   };
+
+export const changeOnlineStatus = (path) => (dispatch) => {
+  // path = courses[courseIndex].body[sectionIndex][type]
+  dispatch({
+    type: CHANGE_ONLINE_STATE,
+    payload: { path },
+  });
+};

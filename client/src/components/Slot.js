@@ -54,7 +54,7 @@ const Slot = ({
         );
         break;
       }
-      case "lab": {
+      case "labs": {
         dispatch(
           deleteLabSlot(sectionIndex, courseIndex, slotIndex, tutorialIndex)
         );
@@ -113,7 +113,7 @@ const Slot = ({
           )
         );
         break;
-      case "lab":
+      case "labs":
         dispatch(
           updateLabSlot(
             sectionIndex,

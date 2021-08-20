@@ -1,5 +1,5 @@
 import React from "react";
-import Tutorial from "./Subtype";
+import Subtype from "./Subtype";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addTutorial, addLab } from "../redux/courses/coursesActions";
@@ -42,7 +42,7 @@ const Subtypes = ({ courseIndex, sectionIndex, subtypes, type }) => {
         <h2>{type === "tutorial" ? "Tutorials" : type === "lab" && "Labs"}</h2>
       )}
       {subtypes.map((subtype, index) => (
-        <Tutorial
+        <Subtype
           key={index}
           {...{ subtype, subtypeIndex: index, courseIndex, sectionIndex, type }}
         />

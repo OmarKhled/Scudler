@@ -26,9 +26,11 @@ import {
   DELETE_LAB_SLOT,
   ADD_COURSE,
   DELETE_COURSE,
+  CHANGE_ONLINE_STATE,
 } from "../types/coursesTypes";
 
 import { initialTemplate } from "../../templates";
+import _ from "lodash";
 
 const initialState = {
   courses: initialTemplate,
@@ -51,6 +53,7 @@ const reducer = (state = initialState, action) => {
                 lecture: {
                   lectureName: "",
                   professor: "",
+                  online: true,
                   slots: [
                     {
                       day: 2,
@@ -110,6 +113,7 @@ const reducer = (state = initialState, action) => {
           lecture: {
             lectureName: "",
             professor: "",
+            online: true,
             slots: [
               {
                 day: 2,
@@ -349,6 +353,7 @@ const reducer = (state = initialState, action) => {
           tutorialName: "",
           tutorialPrefix: "",
           ta: "",
+          online: true,
           slots: [
             {
               day: 0,
@@ -376,6 +381,7 @@ const reducer = (state = initialState, action) => {
           labName: "",
           labPrefix: "1A",
           ta: "",
+          online: false,
           slots: [
             {
               day: 0,
@@ -480,6 +486,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         courses: newCourses,
+      };
+    }
+    case CHANGE_ONLINE_STATE: {
+      const newState = Object.assign({}, { ...state });
+      // Change online state
+      _.set(newState, payload.path, !_.get(newState, payload.path));
+
+      return {
+        ...state,
+        courses: newState.courses,
       };
     }
     default:

@@ -276,7 +276,7 @@ const Subtype = ({
 
       <Slots
         {...{ courseIndex, sectionIndex, slots, tutorialIndex: subtypeIndex }}
-        type={type}
+        type={type === "tutorial" ? type : "labs"}
       />
     </div>
   );
