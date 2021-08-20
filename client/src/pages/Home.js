@@ -77,7 +77,7 @@ const Home = () => {
             Options{" "}
           </Button>
           <Button variant="success" onClick={onMakeSchedule}>
-            Generate Schedue
+            Generate Schedules
           </Button>
         </div>
 
