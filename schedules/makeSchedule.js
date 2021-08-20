@@ -32,7 +32,7 @@ export const getSchedule = (rounds, combinations, options) => {
 
   const scheduleCombinations = allPossibleCombinations(combinations);
 
-  // console.log(scheduleCombinations);
+  console.log(scheduleCombinations);
 
   scheduleCombinations.forEach((combination) => {
     if (fitness(combination, options).fit >= 0) {
