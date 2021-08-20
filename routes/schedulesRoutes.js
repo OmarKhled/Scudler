@@ -7,13 +7,36 @@ const router = express.Router();
 
 router.post("/", (req, res, next) => {
   const data = req.body;
+  // console.log(data);
   const courses = data.courses;
+  const options = data.options || {};
+  const schedulesNum = data.schedulesNum || 50;
 
-  const coursesPossibilities = getCombinations(courses);
+  try {
+    const coursesPossibilities = getCombinations(courses);
 
-  const schedule = getSchedule(100000, coursesPossibilities);
+    let length = 0;
+    coursesPossibilities.forEach((course) =>
+      course.forEach((poss) => length++)
+    );
 
-  res.json({ schedule });
+    const schedules = getSchedule(
+      coursesPossibilities.length === 1
+        ? Math.ceil(Math.pow(length, 1))
+        : coursesPossibilities.length === 2
+        ? Math.ceil(Math.pow(length, 2.1))
+        : coursesPossibilities.length === 3 && Math.ceil(Math.pow(length, 2.5)),
+      coursesPossibilities,
+      options
+    );
+
+    // console.log(schedules.length);
+
+    res.json({ schedules: schedules.splice(0, schedulesNum) });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Server Error" });
+  }
 });
 
 export default router;

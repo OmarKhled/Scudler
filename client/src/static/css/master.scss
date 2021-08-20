@@ -8,6 +8,11 @@ h1, h2, h3, h4, h5, h6, p {
   background: #f0f0f0;
   border-radius: 10px;
 }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .m-container {
   margin: auto;
   width: 80%;
@@ -47,33 +52,156 @@ input:focus {
   font-weight: 500;
 }
 
+
 // Schedule
+
+.schedule-container {
+  box-shadow: 0 0 0.4rem 0 rgba(0, 0, 0, 0.3%);
+  background-color: #ececec;
+  border-radius: 5px;
+}
 .schedule {
-  background-color: #90c6ff;
-  color: #002c5a;
-  padding: 1rem;
-  border-radius: 15px;
+  padding: 0 0 0 0;
+  display: flex;
 }
-table {
-  width: 100%;
+.time-indecator {
+  white-space: nowrap;
+  display: flex;
+  padding: 0 6px;
+  align-items: center;
+  font-size: 0.75rem;
+  border-bottom: 1px #bdbdbd solid;
 }
-th {
+.shrink{ 
+  min-height: 1.25rem;
+  border-bottom: 1px #bdbdbd solid;
+}
+.expand {
+  min-height: 3rem;
+}
+.day-cell {
+  border-bottom: 1px #bdbdbd solid;
   text-align: center;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-td, tr:nth-last-child(9) {
-  border: 1px solid #658fc5;
+.schedule-body {
+  min-width: 0;
+  width: 100%;
+  display: flex;
 }
-.schedule-head {
-  margin: 0 1rem;
+.schedule-column {
+  min-width: 0;
+  flex: 1;
+  flex-grow: 1;
+  border-left: 1px #bdbdbd solid;
 }
-.bold {
-  font-weight: 600;
+.slot-container {
+  padding: 6px;
+  max-width: 100%;
+  position: relative;
+  min-height: 3rem;
+  border-bottom: 1px #bdbdbd solid;
 }
 .slot {
+  font-size: 0.9em;
   background: #fff;
-  padding: 0.5rem;
-  border-radius: 5px;
-  margin: 7px;
-  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  padding: 0.3rem;
+  border-left: 4px rgb(0, 180, 171) solid;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  box-shadow: 0 0.125rem 0.3rem 0 rgba(0, 0, 0, 0.3%);
+  cursor: pointer;
+  user-select: none;
 }
-
+.schedule-tail {
+  background: #f4f4f4;
+  border-radius: 0 0 5px 5px;
+  padding: 1rem;
+}
+.type {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+.registered-circle {
+  background: rgb(0, 180, 171);
+  padding: 15px;
+  border-radius: 50%;
+}
+// Slot information
+.modal {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+}
+.modal-content {
+  padding: 1.5rem;
+  margin-top: 3rem;
+}
+.register-modal-header {
+  border-bottom: #52bf96 1px solid;
+  align-items: flex-start;
+  padding: 0;
+  padding-bottom: 1rem;
+}
+.btn-close {
+  opacity: 0.9;
+  margin: 0;
+}
+.modal-title {
+  font-weight: 400;
+}
+.registered {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 1em;
+  display: block;
+  padding: 0.1rem 0.6rem;
+  color: #00804D;
+  background:#EAF7F2;
+  font-weight: 500;
+}
+.modal-body {
+  padding: 0;
+  padding-top: 0.7rem;
+}
+.info {
+  font-size: 0.8rem;
+}
+.modal-slot {
+  font-size: 0.8rem;
+  padding: 9px;
+  border: 1px #D9D9D9 solid;
+  margin-bottom: 7px;
+}
+.instructor-circle {
+  display: inline;
+  background: #BA46A6;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #fff;
+}
+.instructor {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0.5rem 0 0.5rem 0;
+  padding: 1rem;
+  background-color: #f1f1f1;
+}

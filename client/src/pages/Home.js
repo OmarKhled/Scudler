@@ -39,9 +39,7 @@ const Home = () => {
 
   const onMakeSchedule = async () => {
     const res = await axios.post("/api/schedules", { courses });
-    console.log(res.data.schedule);
-    setSchedule(res.data.schedule);
-    console.log(res.data.schedule[0][0]);
+    setSchedule(res.data.schedules[0].schedule);
   };
 
   return (
