@@ -8,7 +8,6 @@ const getRandonInt = (max) => {
 
 export const getSchedule = (rounds, combinations, options) => {
   let schedules = [];
-  let existNum = 0;
   const allPossibleCombinations = (combinations) => {
     if (combinations.length === 0) {
       return [];
@@ -33,7 +32,7 @@ export const getSchedule = (rounds, combinations, options) => {
 
   const scheduleCombinations = allPossibleCombinations(combinations);
 
-  console.log(scheduleCombinations);
+  // console.log(scheduleCombinations);
 
   scheduleCombinations.forEach((combination) => {
     if (fitness(combination, options).fit >= 0) {
@@ -42,13 +41,6 @@ export const getSchedule = (rounds, combinations, options) => {
     }
   });
 
-  schedules.forEach((schedule1, index1) => {
-    schedules.slice(index1 + 1).forEach((schedule2, index2) => {
-      if (compareMaps(schedule1.schedule, schedule2.schedule)) {
-        schedules.splice(index2 + index1 + 1);
-      }
-    });
-  });
   console.log(schedules.length);
 
   schedules = sortSchedules(schedules);
