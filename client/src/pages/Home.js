@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Course from "../components/Course.js";
 import Schedule from "../components/Schedule.js";
-
 import { Button } from "react-bootstrap";
 
 import axios from "axios";
