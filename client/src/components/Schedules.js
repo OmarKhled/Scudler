@@ -33,17 +33,11 @@ const Schedules = ({ className }) => {
     "3:30 PM",
     "4:30 PM",
   ];
-  let slicedSchedules = [];
 
   useEffect(() => {
-    // slicedSchedules =
-    //   schedules.length > 1
-    //     ? Array.from(...[modifiedSchedules])
-    //     : modifiedSchedules;
-    // console.log(slicedSchedules);
-    // console.log(modifiedSchedules);
-    console.log(modifiedSchedules.slice(currentPage * 5, currentPage * 5 + 5));
-  }, [currentPage]);
+    setCurrentPage(0);
+    // eslint-disable-next-line
+  }, [Schedules]);
 
   return (
     <Fragment>
@@ -63,14 +57,14 @@ const Schedules = ({ className }) => {
                 {...{ schedule, times, days, handleShow }}
               />
             ))}
+          {schedules.length > 5 && (
+            <Pagination
+              key={Math.ceil(schedules.length / 5)}
+              {...{ currentPage, setCurrentPage }}
+              length={Math.ceil(schedules.length / 5)}
+            />
+          )}
         </>
-      )}
-      {schedules.length > 5 && (
-        <Pagination
-          key={Math.ceil(schedules.length / 5)}
-          {...{ currentPage, setCurrentPage }}
-          length={Math.ceil(schedules.length / 5)}
-        />
       )}
     </Fragment>
   );

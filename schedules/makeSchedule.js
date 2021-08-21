@@ -1,7 +1,7 @@
 import { fitness } from "./fitness.js";
-import { sortSchedules } from "./schedulesUtil.js";
+import { compareMaps, sortSchedules } from "./schedulesUtil.js";
 
-export const getSchedule = (rounds, combinations, options) => {
+export const getSchedule = (combinations, options) => {
   let schedules = [];
   // console.log(combinations);
   const allPossibleCombinations = (combinations) => {
@@ -35,6 +35,16 @@ export const getSchedule = (rounds, combinations, options) => {
       const newSchedule = fitness(combination, options);
       schedules.push(newSchedule);
     }
+  });
+
+  console.log(schedules.length);
+
+  schedules.forEach((schedule1, index1) => {
+    schedules.slice(index1 + 1).forEach((schedule2, index2) => {
+      if (compareMaps(schedule1.schedule, schedule2.schedule)) {
+        schedules.splice(index2 + index1 + 1);
+      }
+    });
   });
 
   console.log(schedules.length);
