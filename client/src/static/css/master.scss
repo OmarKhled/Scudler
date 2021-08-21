@@ -255,3 +255,33 @@ ul {
   padding: 1rem;
   background-color: #f1f1f1;
 }
+
+// Pagination
+.pagination {
+  display: block;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.pagination-item {
+  width: 50px;
+  padding: 5px 10px;
+  background: #fff;
+  border: none;
+  border-right: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+}
+.active {
+  background:#0059fd;
+  color: #fff;
+}
+.pagination-nav {
+  font-weight: 400;
+  line-height: 1.5rem;
+  font-size: 1.4rem;
+  padding: 5px 10px;
+  background: #fff;
+  color: #0004eb;
+  border: none;
+  border-right: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+}

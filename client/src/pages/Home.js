@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Courses from "../components/Courses";
-import Schedule from "../components/Schedule";
+import Schedules from "../components/Schedules";
 import SearchBar from "../components/SearchBar";
 import { Button, Form, Modal } from "react-bootstrap";
 
@@ -46,7 +46,7 @@ const Home = () => {
               <label className="d-flex gap-2 align-items-center">
                 <Form.Check
                   checked={sortUponFreeDays}
-                  onClick={() => setSortUponFreeDays(!sortUponFreeDays)}
+                  onChange={() => setSortUponFreeDays(!sortUponFreeDays)}
                 />{" "}
                 Sort based on empty days ?
               </label>
@@ -81,7 +81,7 @@ const Home = () => {
           </Button>
         </div>
 
-        <Schedule className="mt-3" />
+        <Schedules className="mt-3" />
       </>
     </div>
   );

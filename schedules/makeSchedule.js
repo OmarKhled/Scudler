@@ -1,18 +1,14 @@
-import { courses, schedule, schedule2 } from "../courses.js";
 import { fitness } from "./fitness.js";
-import { compareMaps, sortSchedules } from "./schedulesUtil.js";
-
-const getRandonInt = (max) => {
-  return Math.floor(Math.random() * max);
-};
+import { sortSchedules } from "./schedulesUtil.js";
 
 export const getSchedule = (rounds, combinations, options) => {
   let schedules = [];
+  // console.log(combinations);
   const allPossibleCombinations = (combinations) => {
     if (combinations.length === 0) {
       return [];
     } else if (combinations.length === 1) {
-      return combinations[0];
+      return combinations[0].map((combination) => [combination]);
     } else {
       var result = [];
       var allCasesOfRest = allPossibleCombinations(combinations.slice(1)); // recur with the rest of array
@@ -32,7 +28,7 @@ export const getSchedule = (rounds, combinations, options) => {
 
   const scheduleCombinations = allPossibleCombinations(combinations);
 
-  console.log(scheduleCombinations);
+  // console.log(scheduleCombinations);
 
   scheduleCombinations.forEach((combination) => {
     if (fitness(combination, options).fit >= 0) {
