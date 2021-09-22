@@ -8,10 +8,12 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 store().then((str) => {
-  ReactDOM.render(
-    <Provider store={str}>
-      <App />
-    </Provider>,
-    document.getElementById("root")
-  );
+  setTimeout(() => {
+    ReactDOM.render(
+      <Provider store={str}>
+        <App />
+      </Provider>,
+      document.getElementById("root")
+    );
+  }, 600);
 });
