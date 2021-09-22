@@ -1,0 +1,6 @@
+export const REQUEST_USER = "REQUEST_USER";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAIL = "GET_USER_FAIL";
+export const CLEAR_USER_ALERTS = "CLEAR_USER_ALERTS";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const LOAD_USER_COURSES = "LOGOUT_USER";

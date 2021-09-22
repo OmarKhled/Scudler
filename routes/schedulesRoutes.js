@@ -6,8 +6,8 @@ import getCombinations from "../schedules/getCombinations.js";
 const router = express.Router();
 
 router.post("/", (req, res, next) => {
+  console.log("object");
   const data = req.body;
-  // console.log(data);
   const courses = data.courses;
   const options = data.options || {};
   const schedulesNum = data.schedulesNum || 50;
@@ -20,17 +20,7 @@ router.post("/", (req, res, next) => {
       course.forEach((poss) => length++)
     );
 
-    const schedules = getSchedule(
-      coursesPossibilities.length === 1
-        ? Math.ceil(Math.pow(length, 1))
-        : coursesPossibilities.length === 2
-        ? Math.ceil(Math.pow(length, 2.1))
-        : coursesPossibilities.length === 3 && Math.ceil(Math.pow(length, 2.5)),
-      coursesPossibilities,
-      options
-    );
-
-    // console.log(schedules.length);
+    const schedules = getSchedule(coursesPossibilities, options);
 
     res.json({ schedules: schedules.splice(0, schedulesNum) });
   } catch (err) {

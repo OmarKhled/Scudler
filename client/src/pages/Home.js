@@ -1,50 +1,81 @@
 import { useState } from "react";
 import Course from "../components/Course.js";
-import Schedule from "../components/Schedule.js";
-import { Button } from "react-bootstrap";
-
-import axios from "axios";
+import Schedules from "../components/Schedules";
+import { Button, Modal, Form } from "react-bootstrap";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addCourse } from "../redux/courses/coursesActions";
+import { setSchedules } from "../redux/schedule/scheduleActions.js";
+import { saveCourses } from "../redux/users/usersActions.js";
 
 const Home = () => {
   const dispatch = useDispatch();
 
   const { courses } = useSelector((state) => state.courses);
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const [sortUponOnlineDays, setSortUponOnlineDays] = useState(false);
+  const [sortUponFreeDays, setSortUponFreeDays] = useState(false);
+  const [sortUponLastFreeSlots, setSortUponLastFreeSlots] = useState(false);
+
   const onAddCourse = () => {
     dispatch(addCourse());
   };
 
-  // eslint-disable-next-line
-  const map = [
-    /* 0   1   2   3   4   5   6   7,  8 */
-    [[], [], [], [], [], [], [], [], []], // Sunday   0
-    [[], [], [], [], [], [], [], [], []], // Monday   1
-    [[], [], [], [], [], [], [], [], []], // Tuesday  2
-    [[], [], [], [], [], [], [], [], []], // Wendsday 3
-    [[], [], [], [], [], [], [], [], []], // Thursday 4
-  ];
-
-  let [schedule, setSchedule] = useState([
-    /* 0   1   2   3   4   5   6   7,  8 */
-    [[], [], [], [], [], [], [], [], []], // Sunday   0
-    [[], [], [], [], [], [], [], [], []], // Monday   1
-    [[], [], [], [], [], [], [], [], []], // Tuesday  2
-    [[], [], [], [], [], [], [], [], []], // Wendsday 3
-    [[], [], [], [], [], [], [], [], []], // Thursday 4
-  ]);
-
   const onMakeSchedule = async () => {
-    const res = await axios.post("/api/schedules", { courses });
-    setSchedule(res.data.schedules[0].schedule);
+    dispatch(
+      setSchedules(
+        sortUponOnlineDays,
+        sortUponFreeDays,
+        sortUponLastFreeSlots,
+        courses
+      )
+    );
+  };
+
+  const onSaveData = () => {
+    dispatch(saveCourses(courses));
   };
 
   return (
     <div className="mt-3 m-container mb-5">
-      <h1>Home</h1>
-
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <h3>Options</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="d-flex justify-content-center row gap-3">
+            <label className="d-flex gap-2 align-items-center">
+              <Form.Check
+                checked={sortUponFreeDays}
+                onChange={() => setSortUponFreeDays(!sortUponFreeDays)}
+              />{" "}
+              Sort based on empty days ?
+            </label>
+            <label className="d-flex gap-2 align-items-center">
+              <Form.Check
+                checked={sortUponOnlineDays}
+                onChange={() => setSortUponOnlineDays(!sortUponOnlineDays)}
+              />{" "}
+              Sort based on online days ?
+            </label>
+            <label className="d-flex gap-2 align-items-center">
+              <Form.Check
+                checked={sortUponLastFreeSlots}
+                onChange={() =>
+                  setSortUponLastFreeSlots(!sortUponLastFreeSlots)
+                }
+              />{" "}
+              Sort based on last free slots ?
+            </label>
+          </div>
+        </Modal.Body>
+      </Modal>
       {courses.map((course, index) => (
         <Course key={index} courseIndex={index} {...course} />
       ))}
@@ -52,12 +83,27 @@ const Home = () => {
         Add another course
       </Button>
       <br />
-      <div className="my-4">
+      <div className="d-flex justify-content-center">
+        <Button variant="danger" className="mt-3" onClick={handleShow}>
+          {" "}
+          Options{" "}
+        </Button>
+      </div>
+      <br />
+      <div className="my-4 d-flex align-items-center ">
         <Button onClick={onMakeSchedule} variant="success">
           Generate Schedule
         </Button>
+        <Button
+          onClick={onSaveData}
+          className="ms-2"
+          variant="secondary"
+          style={{ color: "#fff" }}
+        >
+          Save Data
+        </Button>
       </div>
-      <Schedule schedule={schedule} />
+      <Schedules />
     </div>
   );
 };

@@ -12,6 +12,8 @@ export const fitness = (courses, options) => {
     [[], [], [], [], [], [], [], [], []], // Thursday 4
   ];
 
+  // console.log(courses);
+
   courses.forEach((course) => {
     TYPES.forEach((type) => {
       if (!_.isEmpty(course[type])) {
