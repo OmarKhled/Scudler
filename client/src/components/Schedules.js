@@ -32,6 +32,10 @@ const Schedules = ({ className }) => {
     "2:30 PM",
     "3:30 PM",
     "4:30 PM",
+    "5:30 PM",
+    "6:30 PM",
+    "7:30 PM",
+    "8:30 PM",
   ];
 
   useEffect(() => {

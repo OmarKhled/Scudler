@@ -168,6 +168,9 @@ const Slot = ({
         <option value="6">2:30 PM</option>
         <option value="7">3:30 PM</option>
         <option value="8">4:30 PM</option>
+        <option value="9">5:30 PM</option>
+        <option value="10">6:30 PM</option>
+        <option value="11">7:30 PM</option>
       </Form.Select>
       <Form.Select value={to} onChange={(e) => onSetTo(e)}>
         <option disabled value="to">
@@ -202,6 +205,15 @@ const Slot = ({
         </option>
         <option value="9" disabled={from >= 9}>
           5:30 PM
+        </option>
+        <option value="10" disabled={from >= 10}>
+          6:30 PM
+        </option>
+        <option value="11" disabled={from >= 11}>
+          7:30 PM
+        </option>
+        <option value="12" disabled={from >= 12}>
+          8:30 PM
         </option>
       </Form.Select>
       {slotIndex > 0 && (

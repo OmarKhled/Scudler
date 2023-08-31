@@ -119,6 +119,7 @@ export const saveCourses = (courses) => async (dispatch) => {
     try {
       // eslint-disable-next-line
       const res = await axios.post("/api/users/courses", { courses }, config);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
