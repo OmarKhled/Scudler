@@ -44,7 +44,7 @@ const spin = keyframes`
 const Spinner = styled.div`
   display: inline-block;
   width: ${clamp(40, 50)};
-  height: 50px;
+  width: ${clamp(40, 50)};
   border: 6px solid rgba(165, 183, 245, 0.3);
   border-radius: 50%;
   border-top-color: #2500fa;
