@@ -1,32 +1,39 @@
 {
-  "name": "scudler",
-  "version": "1.0.0",
-  "description": "A simple app to schedulee classes",
-  "main": "server.js",
-  "type": "module",
+  "private": true,
+  "sideEffects": false,
+  "proxy": "http://127.0.0.1:8000",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
-    "client": "npm start --prefix client",
-    "clientBuild": "npm run build --prefix client",
-    "clientInstall": "npm i --prefix client",
-    "dev": "concurrently \" npm run server \" \" npm run client \"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false CI=false npm run clientInstall && npm run build --prefix client"
+    "build": "remix build",
+    "deploy": "fly deploy --remote-only",
+    "dev": "remix dev",
+    "start": "remix-serve build",
+    "typecheck": "tsc"
   },
-  "author": "Omar Khaled",
-  "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "colors": "^1.4.0",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.21",
-    "mongoose": "^5.13.5",
-    "webpack": "^5.51.1"
+    "@reach/combobox": "^0.18.0",
+    "@reach/dialog": "^0.18.0",
+    "@remix-run/css-bundle": "^1.19.3",
+    "@remix-run/node": "^1.19.3",
+    "@remix-run/react": "^1.19.3",
+    "@remix-run/serve": "^1.19.3",
+    "feather-icons-react": "^0.6.2",
+    "framer-motion": "^10.16.4",
+    "isbot": "^3.6.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scrollbars-custom": "^4.1.1",
+    "styled-components": "^6.0.7"
   },
   "devDependencies": {
-    "concurrently": "^6.2.0",
-    "nodemon": "^2.0.12"
+    "@flydotio/dockerfile": "^0.4.9",
+    "@remix-run/dev": "^1.19.3",
+    "@remix-run/eslint-config": "^1.19.3",
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "eslint": "^8.38.0",
+    "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
