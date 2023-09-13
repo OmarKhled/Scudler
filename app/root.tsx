@@ -66,6 +66,21 @@ export default function App() {
         {typeof document === "undefined" ? "__STYLES__" : null}
       </head>
       <body>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-37QB5SY17S"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-37QB5SY17S');
+            `,
+          }}
+        ></script>
         <RootWrapper>
           <Outlet />
           <br />
@@ -87,7 +102,7 @@ const RootWrapper = styled.div`
   min-height: 100vh;
   width: 80%;
   max-width: ${MAX_WIDTH / 16}rem;
-  margin: ${clamp(5 * 16, 6 * 16)} auto 0 auto;
+  margin: ${clamp(4 * 16, 6 * 16)} auto 0 auto;
   isolation: isolate;
   z-index: 0;
   /* To avoid margin collapse */

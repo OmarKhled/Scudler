@@ -16,7 +16,7 @@ const TIMES = [
   "9:30 AM",
   "10:30 AM",
   "11:30 AM",
-  "12:30 AM",
+  "12:30 PM",
   "1:30 PM",
   "2:30 PM",
   "3:30 PM",
@@ -74,9 +74,10 @@ function CourseModal({ showModal, setShowModal, course }: props) {
                   <SlotDay>
                     <span>
                       {TIMES[slot.slot[0]]}
-                      {slot.slot.length > 1
-                        ? " - " + TIMES[slot.slot[slot.slot.length - 1]]
-                        : ""}
+                      {" - " +
+                        (slot.slot.length > 1
+                          ? TIMES[slot.slot[slot.slot.length - 1]]
+                          : TIMES[slot.slot[0] + 1])}
                     </span>
                     <span>{DAYS[slot.day]}</span>
                     <span>{slot.builduing}</span>
@@ -97,7 +98,7 @@ const Modal = styled(DialogContent)`
   width: min(${clamp(500, 750)}, 90%) !important;
 `;
 const Header = styled.div`
-  padding: ${SPACINGS.md} 0;
+  padding: 0 0 ${SPACINGS.md} 0;
   border-bottom: 1px solid #bdbdbd;
   display: flex;
   justify-content: space-between;
@@ -139,7 +140,7 @@ const SlotDay = styled.p`
   font-size: ${clamp(14, 16)};
   font-weight: 400;
   display: grid;
-  grid-template-columns: 2fr 5fr 3fr;
+  grid-template-columns: auto auto auto;
 `;
 
 export default CourseModal;
