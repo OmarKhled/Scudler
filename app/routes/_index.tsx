@@ -3,7 +3,6 @@ import { useLoaderData } from "@remix-run/react";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { styled } from "styled-components";
-import "@reach/dialog/styles.css";
 
 import Button from "@components/Button";
 import Schedules from "@components/Schedules/Schedules";
@@ -11,6 +10,7 @@ import SearchBar from "@components/SearchBar/SearchBar";
 import SelectedCourses from "@components/SelectedCourses/SelectedCourses";
 import { BACKEND_URL } from "@constants/endpoints";
 import { SPACINGS } from "@constants/spacing";
+import Loading from "@components/Loading/Loading";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -31,9 +31,11 @@ export default function Index() {
   const { courses } = useLoaderData();
   const [selectedCourses, setSelectedCourses] = useState<course[]>([]);
   const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchSchedules = async () => {
     if (selectedCourses.length > 0) {
+      setLoading(true);
       const {
         schedules,
         groupedSchedules,
@@ -52,13 +54,15 @@ export default function Index() {
         })
       ).json();
       setSchedules(groupedSchedules);
+      setLoading(false);
     } else {
       alert("Add some Courses");
     }
   };
 
   return (
-    <div>
+    <>
+      <Loading loading={loading} />
       <Header>Scudler</Header>
       <Description>A time saver courses scheduler</Description>
       <SearchBar
@@ -73,6 +77,7 @@ export default function Index() {
           setSelectedCourses={setSelectedCourses}
         />
         <SubmitButton
+          schedules={schedules}
           key={"generateButton"}
           layout={"position"}
           onClick={fetchSchedules}
@@ -81,7 +86,7 @@ export default function Index() {
         </SubmitButton>
       </AnimatePresence>
       <Schedules schedules={schedules} />
-    </div>
+    </>
   );
 }
 
@@ -94,7 +99,9 @@ const Description = styled.p`
   /* font-weight: 400; */
   margin-top: ${SPACINGS.rg};
 `;
-const SubmitButton = styled(Button)`
+const SubmitButton = styled(Button)<{ schedules: schedulesGroup[] }>`
   margin: auto;
-  margin-top: ${SPACINGS.super};
+  margin-top: ${({ schedules: { length } }) =>
+    length > 0 ? SPACINGS.md : SPACINGS.super};
+  margin-bottom: ${SPACINGS.super};
 `;

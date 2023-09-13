@@ -159,7 +159,7 @@ const PopoverWrapper = styled(ComboboxList)`
   margin-top: ${SPACINGS.sm};
   /* padding: ${SPACINGS.sm} ${SPACINGS.sm}; */
   list-style: none;
-  max-height: 100px;
+  max-height: 140px;
   overflow-y: auto;
 `;
 

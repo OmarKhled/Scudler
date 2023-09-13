@@ -14,6 +14,8 @@ import {
 import GlobalStyles from "./components/GlobalStyles/GlobalStyles";
 import styled from "styled-components";
 import { MAX_WIDTH } from "@constants/breakpoints";
+import { clamp } from "@utils/clamp";
+import "@reach/dialog/styles.css";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -73,7 +75,7 @@ const RootWrapper = styled.div`
   min-height: 100vh;
   width: 80%;
   max-width: ${MAX_WIDTH / 16}rem;
-  margin: 6rem auto 0 auto;
+  margin: ${clamp(5 * 16, 6 * 16)} auto 0 auto;
   isolation: isolate;
   z-index: 0;
   /* To avoid margin collapse */
