@@ -48,6 +48,18 @@ export default function App() {
   return (
     <html lang="en">
       <head>
+        <meta
+          property="og:title"
+          content="Scudler: A Time Saver Courses Scheduler"
+        />
+        <meta
+          name="description"
+          content="A courses scheduler integrated with Ellucian Power Campus"
+        />
+        <meta
+          property="og:image"
+          content="https://scudler.fly.dev/images/og.png"
+        />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
