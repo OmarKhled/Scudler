@@ -10,7 +10,7 @@ const DAYS = [
   "Sunday",
   "Monday",
   "Tuesday",
-  "Wendsday",
+  "Wednesday",
   "Thrusday",
   "Friday",
   "Saturday",
@@ -37,6 +37,7 @@ const TIMES = [
 
 function Schedule({ schedulesGroup, openCourseDetails }: props) {
   const schedule = schedulesGroup.schedules[0].schedule;
+  console.log(schedule);
   return (
     <>
       <TableWrapper>
@@ -49,22 +50,25 @@ function Schedule({ schedulesGroup, openCourseDetails }: props) {
             )
           )}
         </TimeSlotsColumn>
-        {DAYS.map((day, index) => (
-          <Column key={`${index}${day}`}>
+        {DAYS.map((day, dayIndex) => (
+          <Column key={`${dayIndex}${day}`}>
             <ColumnHead>{day}</ColumnHead>
-            {schedule[index].map(
+            {schedule[dayIndex].map(
               (slot, slotIndex) =>
                 slot.length > 0 &&
                 slot[0].name !=
                   (slotIndex > 0
-                    ? schedule[index][slotIndex - 1][0]?.name
+                    ? schedule[dayIndex][slotIndex - 1][0]?.name
                     : null) && (
                   <Slot
                     key={slot[0].name + " " + slotIndex + " "}
                     onClick={() => openCourseDetails(slot[0])}
                     $index={slotIndex}
                     $length={
-                      slot[0].slots.map((slot) => slot.slot).flat().length
+                      slot[0].slots
+                        .filter((slot) => slot.day == dayIndex)
+                        .map((slot) => slot.slot)
+                        .flat().length
                     }
                   >
                     {slot[0].name}

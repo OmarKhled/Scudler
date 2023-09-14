@@ -32,6 +32,7 @@ export default function Index() {
   const [selectedCourses, setSelectedCourses] = useState<course[]>([]);
   const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [empty, setEmpty] = useState<boolean>(false);
 
   const fetchSchedules = async () => {
     if (selectedCourses.length > 0) {
@@ -54,6 +55,11 @@ export default function Index() {
         })
       ).json();
       setSchedules(groupedSchedules);
+      if (groupedSchedules.length == 0) {
+        setEmpty(true);
+      } else {
+        setEmpty(false);
+      }
       setLoading(false);
     } else {
       alert("Add some Courses");
@@ -85,7 +91,7 @@ export default function Index() {
           Generate Schedules
         </SubmitButton>
       </AnimatePresence>
-      <Schedules schedules={schedules} />
+      <Schedules schedules={schedules} empty={empty} />
     </>
   );
 }

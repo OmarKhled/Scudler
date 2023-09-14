@@ -10,7 +10,15 @@ interface props {
   course: scheduleCourse;
 }
 
-const DAYS = ["Sunday", "Monday", "Tuesday", "Thrusday", "Friday", "Saturday"];
+const DAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thrusday",
+  "Friday",
+  "Saturday",
+];
 const TIMES = [
   "8:30 AM",
   "9:30 AM",
@@ -76,7 +84,7 @@ function CourseModal({ showModal, setShowModal, course }: props) {
                       {TIMES[slot.slot[0]]}
                       {" - " +
                         (slot.slot.length > 1
-                          ? TIMES[slot.slot[slot.slot.length - 1]]
+                          ? TIMES[slot.slot[slot.slot.length - 1] + 1]
                           : TIMES[slot.slot[0] + 1])}
                     </span>
                     <span>{DAYS[slot.day]}</span>

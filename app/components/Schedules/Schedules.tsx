@@ -1,14 +1,17 @@
 import CourseModal from "@components/CourseModal/CourseModal";
 import Schedule from "@components/Schedule";
+import { SPACINGS } from "@constants/spacing";
 import { useState } from "react";
+import { styled } from "styled-components";
 
 interface props {
   schedules: schedulesGroup[];
+  empty: boolean;
 }
 
 const PER_PAGE = 10;
 
-function Schedules({ schedules }: props) {
+function Schedules({ schedules, empty }: props) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedCourse, setSelectedCourse] = useState<scheduleCourse>();
   const [page, setPage] = useState<number>(1);
@@ -20,22 +23,51 @@ function Schedules({ schedules }: props) {
 
   return (
     <>
-      <CourseModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        course={selectedCourse as scheduleCourse}
-      />
-      {schedules
-        .slice((page - 1) * PER_PAGE, PER_PAGE)
-        .map((schedule, index) => (
-          <Schedule
-            key={index + PER_PAGE * page - 1}
-            schedulesGroup={schedule}
-            openCourseDetails={openCourseDetails}
+      {!empty ? (
+        <>
+          <CourseModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            course={selectedCourse as scheduleCourse}
           />
-        ))}
+          {schedules
+            .slice((page - 1) * PER_PAGE, PER_PAGE)
+            .map((schedule, index) => (
+              <Schedule
+                key={index + PER_PAGE * page - 1}
+                schedulesGroup={schedule}
+                openCourseDetails={openCourseDetails}
+              />
+            ))}
+        </>
+      ) : (
+        <>
+          <NoPossibleCombinationsImage
+            src="/images/404.png"
+            alt="No Schedules are found"
+          />
+          <NoPossibleCombinationsMessage>
+            Couldn't Produce Schedules for these inputs
+          </NoPossibleCombinationsMessage>
+        </>
+      )}
     </>
   );
 }
+
+const NoPossibleCombinationsImage = styled.img`
+  display: block;
+  margin: auto;
+  opacity: 0.4;
+  width: 120px;
+  margin-top: ${SPACINGS.lg};
+`;
+const NoPossibleCombinationsMessage = styled.p`
+  text-align: center;
+  color: #999;
+  margin-top: ${SPACINGS.sm};
+  font-weight: 400;
+  /* width: 130px; */
+`;
 
 export default Schedules;
