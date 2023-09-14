@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://scudler-express.fly.dev"
+export const BACKEND_URL = "https://api.scudler.com"
