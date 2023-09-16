@@ -26,10 +26,8 @@ function SearchBar({
 }) {
   const controls = useAnimationControls();
   const [results, setResults] = useState<course[]>(courses);
-  const [query, setQuery] = useState<string>("");
 
   const handleChange = (e: any) => {
-    setQuery(e.target.value);
     setResults(
       courses.filter(
         (course) =>
@@ -50,7 +48,6 @@ function SearchBar({
     if (newCourse) {
       setSelectedCourses((state: course[]) => [newCourse, ...state]);
     }
-    setQuery("");
   };
 
   return (
@@ -83,7 +80,6 @@ function SearchBar({
         onChange={handleChange}
         id="courses-search"
         placeholder="Add a course"
-        value={query}
       />
 
       <ComboboxPopover>
