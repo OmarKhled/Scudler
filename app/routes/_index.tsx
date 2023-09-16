@@ -1,7 +1,7 @@
 import { json, type V2_MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 import Button from "@components/Button";
@@ -19,19 +19,31 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = async () => {
-  const { courses } = await (
-    await fetch(`${BACKEND_URL}/api/courses`, { method: "GET" })
-  ).json();
+// export const loader = async () => {
+//   const { courses } = await (
+//     await fetch(`${BACKEND_URL}/api/courses`, { method: "GET" })
+//   ).json();
 
-  return json({ courses });
-};
+//   return json({ courses });
+// };
 
 export default function Index() {
-  const { courses } = useLoaderData();
+  // const { courses } = useLoaderData();
+  const [courses, setCourses] = useState<course[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    (async function () {
+      const { courses } = await (
+        await fetch(`${BACKEND_URL}/api/courses`, { method: "GET" })
+      ).json();
+      setCourses(courses);
+      setLoading(false);
+    })();
+  }, []);
+
   const [selectedCourses, setSelectedCourses] = useState<course[]>([]);
   const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
 
   const fetchSchedules = async () => {
@@ -54,6 +66,7 @@ export default function Index() {
           },
         })
       ).json();
+      console.log(schedules);
       setSchedules(groupedSchedules);
       if (groupedSchedules.length == 0) {
         setEmpty(true);
@@ -66,34 +79,38 @@ export default function Index() {
     }
   };
 
-  return (
-    <>
-      <Loading loading={loading} />
-      <Header>Scudler</Header>
-      <Description>A time saver courses scheduler</Description>
-      <SearchBar
-        courses={courses}
-        setSelectedCourses={setSelectedCourses}
-        selectedCourses={selectedCourses}
-      />
-      <AnimatePresence>
-        <SelectedCourses
-          key={"selectedCourses"}
-          selectedCourses={selectedCourses}
+  if (loading && courses.length == 0) {
+    return <Loading loading={loading} />;
+  } else {
+    return (
+      <>
+        <Loading loading={loading} />
+        <Header>Scudler</Header>
+        <Description>A time saver courses scheduler</Description>
+        <SearchBar
+          courses={courses}
           setSelectedCourses={setSelectedCourses}
+          selectedCourses={selectedCourses}
         />
-        <SubmitButton
-          schedules={schedules}
-          key={"generateButton"}
-          layout={"position"}
-          onClick={fetchSchedules}
-        >
-          Generate Schedules
-        </SubmitButton>
-      </AnimatePresence>
-      <Schedules schedules={schedules} empty={empty} />
-    </>
-  );
+        <AnimatePresence>
+          <SelectedCourses
+            key={"selectedCourses"}
+            selectedCourses={selectedCourses}
+            setSelectedCourses={setSelectedCourses}
+          />
+          <SubmitButton
+            schedules={schedules}
+            key={"generateButton"}
+            layout={"position"}
+            onClick={fetchSchedules}
+          >
+            Generate Schedules
+          </SubmitButton>
+        </AnimatePresence>
+        <Schedules schedules={schedules} empty={empty} />
+      </>
+    );
+  }
 }
 
 const Header = styled.h2`
