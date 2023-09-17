@@ -34,11 +34,16 @@ export default function Index() {
 
   useEffect(() => {
     (async function () {
-      const { courses } = await (
-        await fetch(`${BACKEND_URL}/api/courses`, { method: "GET" })
-      ).json();
-      setCourses(courses);
-      setLoading(false);
+      try {
+        const { courses } = await (
+          await fetch(`${BACKEND_URL}/api/courses`, { method: "GET" })
+        ).json();
+        setCourses(courses);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
     })();
   }, []);
 
@@ -48,32 +53,37 @@ export default function Index() {
 
   const fetchSchedules = async () => {
     if (selectedCourses.length > 0) {
-      setLoading(true);
-      const {
-        schedules,
-        groupedSchedules,
-      }: { schedules: schedule[]; groupedSchedules: schedulesGroup[] } = await (
-        await fetch(`${BACKEND_URL}/api/schedules`, {
-          method: "POST",
-          body: JSON.stringify({
-            courses: selectedCourses,
-            options: {
-              sortUponFreeDays: true,
-            },
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-      ).json();
-      console.log(schedules);
-      setSchedules(groupedSchedules);
-      if (groupedSchedules.length == 0) {
-        setEmpty(true);
-      } else {
-        setEmpty(false);
+      try {
+        setLoading(true);
+        const {
+          schedules,
+          groupedSchedules,
+        }: { schedules: schedule[]; groupedSchedules: schedulesGroup[] } =
+          await (
+            await fetch(`${BACKEND_URL}/api/schedules`, {
+              method: "POST",
+              body: JSON.stringify({
+                courses: selectedCourses,
+                options: {
+                  sortUponFreeDays: true,
+                },
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+          ).json();
+        setSchedules(groupedSchedules);
+        if (groupedSchedules.length == 0) {
+          setEmpty(true);
+        } else {
+          setEmpty(false);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
       }
-      setLoading(false);
     } else {
       alert("Add some Courses");
     }

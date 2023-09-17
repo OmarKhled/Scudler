@@ -31,7 +31,7 @@ function SearchBar({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: any) => {
-    setQuery(e.target.value);
+    // setQuery(e.target.value);
     setResults(
       courses.filter(
         (course) =>
@@ -56,7 +56,13 @@ function SearchBar({
       console.log("object");
       inputRef.current.value = "";
     }
-    setQuery("");
+    // setQuery("");
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
+    }, 5);
+    // }
   };
 
   return (
@@ -90,7 +96,8 @@ function SearchBar({
         id="courses-search"
         placeholder="Add a course"
         ref={inputRef}
-        value={query}
+        autocomplete={false}
+        // value={query}
       />
 
       <ComboboxPopover>
