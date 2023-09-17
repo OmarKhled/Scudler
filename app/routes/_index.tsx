@@ -1,5 +1,4 @@
 import { json, type V2_MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
@@ -11,6 +10,7 @@ import SelectedCourses from "@components/SelectedCourses/SelectedCourses";
 import { BACKEND_URL } from "@constants/endpoints";
 import { SPACINGS } from "@constants/spacing";
 import Loading from "@components/Loading/Loading";
+import ErrorModal from "@components/ErrorModal/ErrorModal";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -19,18 +19,11 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-// export const loader = async () => {
-//   const { courses } = await (
-//     await fetch(`${BACKEND_URL}/api/courses`, { method: "GET" })
-//   ).json();
-
-//   return json({ courses });
-// };
-
 export default function Index() {
-  // const { courses } = useLoaderData();
   const [courses, setCourses] = useState<course[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>();
+  const [down, setDown] = useState<boolean>(false);
 
   useEffect(() => {
     (async function () {
@@ -40,9 +33,11 @@ export default function Index() {
         ).json();
         setCourses(courses);
         setLoading(false);
+        setDown(false);
       } catch (error) {
         console.log(error);
         setLoading(false);
+        setDown(true);
       }
     })();
   }, []);
@@ -83,6 +78,7 @@ export default function Index() {
       } catch (error) {
         console.log(error);
         setLoading(false);
+        setError("Failed to load schedules");
       }
     } else {
       alert("Add some Courses");
@@ -94,30 +90,42 @@ export default function Index() {
   } else {
     return (
       <>
+        <ErrorModal error={error} setError={setError} />
         <Loading loading={loading} />
         <Header>Scudler</Header>
-        <Description>A time saver courses scheduler</Description>
-        <SearchBar
-          courses={courses}
-          setSelectedCourses={setSelectedCourses}
-          selectedCourses={selectedCourses}
-        />
-        <AnimatePresence>
-          <SelectedCourses
-            key={"selectedCourses"}
-            selectedCourses={selectedCourses}
-            setSelectedCourses={setSelectedCourses}
-          />
-          <SubmitButton
-            schedules={schedules}
-            key={"generateButton"}
-            layout={"position"}
-            onClick={fetchSchedules}
-          >
-            Generate Schedules
-          </SubmitButton>
-        </AnimatePresence>
-        <Schedules schedules={schedules} empty={empty} />
+
+        {down ? (
+          <>
+            <Description>
+              System update in progress. We'll be back shortly.
+            </Description>
+          </>
+        ) : (
+          <>
+            <Description>A time saver courses scheduler</Description>
+            <SearchBar
+              courses={courses}
+              setSelectedCourses={setSelectedCourses}
+              selectedCourses={selectedCourses}
+            />
+            <AnimatePresence>
+              <SelectedCourses
+                key={"selectedCourses"}
+                selectedCourses={selectedCourses}
+                setSelectedCourses={setSelectedCourses}
+              />
+              <SubmitButton
+                schedules={schedules}
+                key={"generateButton"}
+                layout={"position"}
+                onClick={fetchSchedules}
+              >
+                Generate Schedules
+              </SubmitButton>
+            </AnimatePresence>
+            <Schedules schedules={schedules} empty={empty} />
+          </>
+        )}
       </>
     );
   }
@@ -137,4 +145,9 @@ const SubmitButton = styled(Button)<{ schedules: schedulesGroup[] }>`
   margin-top: ${({ schedules: { length } }) =>
     length > 0 ? SPACINGS.md : SPACINGS.super};
   margin-bottom: ${SPACINGS.super};
+`;
+
+const Error = styled.h6`
+  text-align: center;
+  font-weight: 600;
 `;

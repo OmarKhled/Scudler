@@ -40,6 +40,25 @@ const COLORS = {
     "650": "hsl(234, 76%, 20%)",
     "700": "hsl(234, 76%, 15%)",
   },
+  danger: {
+    "10": "hsl(0, 76%, 95%)",
+    "25": "hsl(0, 76%, 93%)",
+    "50": "hsl(0, 76%, 85%)",
+    "100": "hsl(0, 76%, 80%)",
+    "150": "hsl(0, 76%, 75%)",
+    "200": "hsl(0, 76%, 70%)",
+    "250": "hsl(0, 76%, 65%)",
+    "300": "hsl(0, 76%, 60%)",
+    "350": "hsl(0, 76%, 55%)",
+    default: "hsl(0, 76%, 54%)",
+    "400": "hsl(0, 76%, 45%)",
+    "450": "hsl(0, 76%, 40%)",
+    "500": "hsl(0, 76%, 35%)",
+    "550": "hsl(0, 76%, 30%)",
+    "600": "hsl(0, 76%, 25%)",
+    "650": "hsl(0, 76%, 20%)",
+    "700": "hsl(0, 76%, 15%)",
+  },
   mintCream: "hsl(180, 100%, 98%)",
   borderColor: "hsl(0, 0%, 0%)",
   // borderColor: "hsl(225, 100%, 20%)",
@@ -47,6 +66,7 @@ const COLORS = {
 
 export const LIGHT_THEME_COLORS: { [key: string]: any } = {
   primary: COLORS.royalBlue,
+  error: COLORS.danger,
   background: "#fff",
   textColor: "#000",
 };

@@ -75,7 +75,6 @@ function SearchBar({
         <SearchIcon />
       </IconLabel>
       <ComboBoxInputField
-        autoComplete="off"
         forwardedAs={motion.input}
         transition={{
           type: "spring",
@@ -93,10 +92,12 @@ function SearchBar({
         }
         onBlur={() => controls.start({ scale: 1, x: 0 })}
         onChange={handleChange}
+        autocomplete={false}
+        autoComplete="off"
+        selectOnClick
         id="courses-search"
         placeholder="Add a course"
         ref={inputRef}
-        autocomplete={false}
         // value={query}
       />
 

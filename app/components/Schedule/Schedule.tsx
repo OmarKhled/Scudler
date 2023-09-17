@@ -1,3 +1,4 @@
+import { DAYS, TIMES as TIMESLOTS } from "@constants/slots";
 import { SPACINGS } from "@constants/spacing";
 import { clamp } from "@utils/clamp";
 import { styled } from "styled-components";
@@ -6,34 +7,9 @@ interface props {
   schedulesGroup: schedulesGroup;
   openCourseDetails: (scheduleCourse: scheduleCourse) => void;
 }
-const DAYS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thrusday",
-  "Friday",
-  "Saturday",
-];
-const TIMES = [
-  " ",
-  "8:30 AM",
-  "9:30 AM",
-  "10:30 AM",
-  "11:30 AM",
-  "12:30 PM",
-  "1:30 PM",
-  "2:30 PM",
-  "3:30 PM",
-  "4:30 PM",
-  "5:30 PM",
-  "6:30 PM",
-  "7:30 PM",
-  "8:30 PM",
-  "9:30 PM",
-  "10:30 PM",
-  "11:30 PM",
-];
+
+const TIMES = [...TIMESLOTS];
+TIMES.unshift("");
 
 function Schedule({ schedulesGroup, openCourseDetails }: props) {
   const schedule = schedulesGroup.schedules[0].schedule;
