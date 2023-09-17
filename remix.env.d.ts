@@ -29,6 +29,7 @@ interface scheduleCourse {
     builduing: string,
     slot: number[]
   }[]
+  available: boolean
 }
 
 declare module 'feather-icons-react'

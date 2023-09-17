@@ -13,7 +13,9 @@ TIMES.unshift("");
 
 function Schedule({ schedulesGroup, openCourseDetails }: props) {
   const schedule = schedulesGroup.schedules[0].schedule;
-  console.log(schedule);
+
+  console.log(schedulesGroup.schedules[0]);
+
   return (
     <>
       <TableWrapper>
@@ -40,6 +42,7 @@ function Schedule({ schedulesGroup, openCourseDetails }: props) {
                     key={slot[0].name + " " + slotIndex + " "}
                     onClick={() => openCourseDetails(slot[0])}
                     $index={slotIndex}
+                    $available={slot[0].available}
                     $length={
                       slot[0].slots
                         .filter((slot) => slot.day == dayIndex)
@@ -96,11 +99,14 @@ const ColumnHead = styled(HeadCell)`
   width: 100%;
 `;
 const RowHead = styled(HeadCell)``;
-const Slot = styled.div<{ $index: number; $length: number }>`
+const Slot = styled.div<{
+  $index: number;
+  $length: number;
+  $available: boolean;
+}>`
   position: absolute;
   top: calc(${(props) => (100 / 16) * props.$index}% + 36px);
   height: ${(props) => (100 / 17) * props.$length}%;
-  background-color: red;
   overflow: hidden;
   width: 95%;
   margin: auto;
@@ -110,7 +116,7 @@ const Slot = styled.div<{ $index: number; $length: number }>`
   padding: ${SPACINGS.xs};
   border-radius: ${SPACINGS.xs};
   border: 0.2px solid #2032d430;
-  border-left: 5px solid #2032d4;
+  border-left: 5px solid ${(props) => (props.$available ? "#2032d4" : "red")};
   background: #fff;
   user-select: none;
   cursor: pointer;
