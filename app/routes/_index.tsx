@@ -11,6 +11,7 @@ import { BACKEND_URL } from "@constants/endpoints";
 import { SPACINGS } from "@constants/spacing";
 import Loading from "@components/Loading/Loading";
 import ErrorModal from "@components/ErrorModal/ErrorModal";
+import Footer from "@components/Footer";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -102,6 +103,7 @@ export default function Index() {
           </>
         ) : (
           <>
+            <Footer />
             <Description>A time saver courses scheduler</Description>
             <SearchBar
               courses={courses}

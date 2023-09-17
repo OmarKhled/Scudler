@@ -16,6 +16,7 @@ import styled from "styled-components";
 import { MAX_WIDTH } from "@constants/breakpoints";
 import { clamp } from "@utils/clamp";
 import "@reach/dialog/styles.css";
+import Footer from "@components/Footer";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -63,6 +64,8 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        <link rel="preload" as="image" href="/images/logo.png" />
+        <link rel="preload" as="image" href="/images/portfolio.png" />
         {typeof document === "undefined" ? "__STYLES__" : null}
       </head>
       <body>
@@ -81,6 +84,8 @@ export default function App() {
             `,
           }}
         ></script>
+
+        {/* <Footer /> */}
         <RootWrapper>
           <Outlet />
           <br />
