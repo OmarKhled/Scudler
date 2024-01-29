@@ -44,8 +44,8 @@ const spin = keyframes`
 `;
 export const Spinner = styled.div`
   display: block;
-  margin: auto;
-  margin-top: ${SPACINGS.lg};
+  /* margin: auto;
+  margin-top: ${SPACINGS.lg}; */
   width: ${clamp(40, 50)};
   height: ${clamp(40, 50)};
   border: 6px solid rgba(165, 183, 245, 0.3);

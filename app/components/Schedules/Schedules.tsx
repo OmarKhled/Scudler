@@ -2,7 +2,7 @@ import CourseModal from "@components/CourseModal/CourseModal";
 import Schedule from "@components/Schedule";
 import { SPACINGS } from "@constants/spacing";
 import { useState } from "react";
-import { schedulesGroup } from "remix.env";
+// import { schedulesGroup } from "remix.env";
 import { styled } from "styled-components";
 
 interface props {
@@ -49,6 +49,12 @@ function Schedules({ schedules, empty }: props) {
           />
           <NoPossibleCombinationsMessage>
             Couldn't Produce Schedules for these inputs
+            <br />
+            <small>
+              If you believe this isn't correct, please send me a mail on{" "}
+              <a href="mailto:me@omarkhled.me">me@omarkhled.me</a> or text me on
+              on <a href="tel:+201068405513">01068405513</a>
+            </small>
           </NoPossibleCombinationsMessage>
         </>
       )}

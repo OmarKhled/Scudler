@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { X } from "feather-icons-react";
 import { clamp } from "@utils/clamp";
 import { DAYS, TIMES } from "@constants/slots";
-import { scheduleCourse } from "remix.env";
+// import { scheduleCourse } from "remix.env";
 interface props {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -52,7 +52,7 @@ function CourseModal({ showModal, setShowModal, course }: props) {
               ))}
               <Head>Schedule</Head>
               {course.slots.map((slot) => (
-                <SlotInfo>
+                <SlotInfo key={DAYS[slot.day] + slot.builduing}>
                   <SlotDay>
                     <span>
                       {TIMES[slot.slot[0]]}

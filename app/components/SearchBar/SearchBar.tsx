@@ -1,4 +1,4 @@
-import { Dispatch, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Search } from "feather-icons-react";
 import {
   Combobox,
@@ -14,19 +14,19 @@ import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
 
 import { clamp } from "@utils/clamp";
 import { SPACINGS } from "@constants/spacing";
-import { course, modes } from "remix.env";
 
 function SearchBar({
   courses,
+  setSelectedCourses,
   selectedCourses,
-  setSelectedChoice,
 }: {
   courses: course[];
-  selectedCourses: course[];
-  setSelectedChoice: Dispatch<React.SetStateAction<string | undefined>>;
+  selectedCourses: courseSelection[];
+  setSelectedCourses: React.Dispatch<React.SetStateAction<courseSelection[]>>;
 }) {
   const controls = useAnimationControls();
   const [results, setResults] = useState<course[]>(courses);
+  const [query, setQuery] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,7 +36,7 @@ function SearchBar({
       courses.filter(
         (course) =>
           !selectedCourses
-            .map((c) => c.courseName)
+            .map((c) => c.course.courseName)
             .includes(course.courseName) &&
           course.courseName
             .toLocaleLowerCase()
@@ -45,23 +45,43 @@ function SearchBar({
     );
   };
 
-  const onSelect = (query: string) => {
-    console.log(query);
-    setSelectedChoice(query);
-
+  const addCourse = (courseName: string) => {
+    const newCourse = courses.find(
+      (course) => course.courseName === courseName
+    );
+    if (newCourse) {
+      const courseProfessors = new Set<string>();
+      newCourse.body.forEach((section) => {
+        if (section && section.lecture) {
+          courseProfessors.add(section.lecture.professor);
+        }
+      });
+      setSelectedCourses((state) => [
+        {
+          course: newCourse,
+          professors: Array.from(courseProfessors).map((professor) => ({
+            name: professor,
+            selected: true,
+          })),
+        },
+        ...state,
+      ]);
+    }
     if (inputRef.current != null) {
+      console.log("object");
       inputRef.current.value = "";
     }
+    // setQuery("");
     setTimeout(() => {
       if (inputRef.current) {
         inputRef.current.value = "";
       }
     }, 5);
-    return query;
+    // }
   };
 
   return (
-    <Wrapper aria-labelledby="Search Field" onSelect={onSelect}>
+    <Wrapper aria-labelledby="Courses Search Field" onSelect={addCourse}>
       <IconLabel
         animate={controls}
         htmlFor="courses-search"
@@ -91,7 +111,7 @@ function SearchBar({
         autoComplete="off"
         selectOnClick
         id="courses-search"
-        placeholder="Search a Course"
+        placeholder="Add a course"
         ref={inputRef}
         // value={query}
       />
@@ -108,10 +128,10 @@ function SearchBar({
               {results.map((result) => (
                 <Option
                   key={result.courseName}
-                  // initial={{ opacity: 0 }}
-                  // exit={{ opacity: 0 }}
-                  // animate={{ opacity: 1 }}
-                  // forwardedAs={motion.div}
+                  initial={{ opacity: 0 }}
+                  exit={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  forwardedAs={motion.div}
                   value={result.courseName}
                 />
               ))}

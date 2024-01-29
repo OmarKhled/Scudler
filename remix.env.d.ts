@@ -3,9 +3,18 @@
 
 interface course {
   courseName: string;
+  body: {
+    sectionNumber: number;
+    lecture: {
+      professor: string;
+    };
+  }[];
 }
 
-export type modes = "schedules" | "rooms" | "courses";
+interface courseSelection {
+  course: course;
+  professors: { name: string; selected: boolean }[];
+}
 
 interface schedulesGroup {
   type: "group" | "single";
@@ -20,6 +29,7 @@ interface schedule {
 interface scheduleCourse {
   name: string;
   instructor: string;
+  type: "tutorial" | "lecture" | "lab";
   online: boolean;
   subtype: "tutorial" | "lecture" | "lab";
   prefix: number | `${number}${"A" | "B" | "C" | "D"}`;

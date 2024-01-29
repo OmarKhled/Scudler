@@ -1,5 +1,4 @@
 import { json, type V2_MetaFunction } from "@remix-run/node";
-import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
@@ -9,18 +8,9 @@ import SearchBar from "@components/SearchBar/SearchBar";
 import SelectedCourses from "@components/SelectedCourses/SelectedCourses";
 import { BACKEND_URL } from "@constants/endpoints";
 import { SPACINGS } from "@constants/spacing";
-import Loading, { Spinner } from "@components/Loading/Loading";
+import Loading from "@components/Loading/Loading";
 import ErrorModal from "@components/ErrorModal/ErrorModal";
 import Footer from "@components/Footer";
-import Modes from "@components/Modes";
-import {
-  course,
-  modes,
-  schedule,
-  scheduleCourse,
-  schedulesGroup,
-} from "remix.env";
-import Rooms from "@components/Rooms";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -31,19 +21,13 @@ export const meta: V2_MetaFunction = () => {
 
 export default function Index() {
   const [courses, setCourses] = useState<course[]>([]);
-  const [rooms, setRooms] = useState<
-    { map: scheduleCourse[][][]; name: string }[]
-  >([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [componentsLoading, setComponentsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [down, setDown] = useState<boolean>(false);
 
-  const [selectedCourses, setSelectedCourses] = useState<course[]>([]);
+  const [selectedCourses, setSelectedCourses] = useState<courseSelection[]>([]);
   const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
-  const [mode, setMode] = useState<modes>("schedules");
-  const [selectedChoice, setSelectedChoice] = useState<string>();
 
   useEffect(() => {
     (async function () {
@@ -62,71 +46,47 @@ export default function Index() {
     })();
   }, []);
 
-  useEffect(() => {
-    setComponentsLoading(true);
-    (async () => {
-      switch (mode) {
-        case "rooms":
-          try {
-            const { rooms } = await (
-              await fetch(`${BACKEND_URL}/api/rooms`, { method: "GET" })
-            ).json();
-            setRooms(rooms);
-            setComponentsLoading(false);
-          } catch (error) {
-            console.log(error);
-            setComponentsLoading(false);
-            setDown(true);
-          }
-          break;
+  // useEffect(() => {
+  //   courses.forEach((course) => {
+  //     const codes = new Set();
+  //     course.body.forEach((section) => {
+  //       codes.add(section.lecture.professor);
+  //     });
+  //     if (codes.size > 1) {
+  //       console.log(course.courseName, codes);
+  //     }
+  //   });
 
-        default:
-          setComponentsLoading(false);
-          break;
-      }
-    })();
-  }, [mode]);
-
-  useEffect(() => {
-    console.log(selectedChoice);
-    if (selectedChoice) {
-      switch (mode) {
-        case "schedules":
-          if (
-            !selectedCourses
-              .map((course) => course.courseName)
-              .includes(selectedChoice)
-          ) {
-            const newCourse = courses.find(
-              (course) => course.courseName === selectedChoice
-            );
-
-            if (newCourse) {
-              setSelectedCourses((state: course[]) => [newCourse, ...state]);
-            }
-          }
-
-          break;
-        case "courses":
-          console.log("courses");
-        default:
-          break;
-      }
-    }
-  }, [selectedChoice]);
+  //   console.log({ selectedCourses });
+  // }, [courses]);
 
   const fetchSchedules = async () => {
-    if (selectedCourses.length > 0) {
+    const finalCourses = selectedCourses
+      .map((course) => {
+        return {
+          ...course.course,
+          body: course.course.body.filter((section) =>
+            course.professors
+              .filter((professor) => professor.selected)
+              .map((professor) => professor.name)
+              .includes(section.lecture.professor)
+          ),
+        };
+      })
+      .filter((course) => course.body.length > 0);
+
+    if (finalCourses.length > 0) {
       try {
-        setComponentsLoading(true);
+        setLoading(true);
         const {
+          schedules,
           groupedSchedules,
         }: { schedules: schedule[]; groupedSchedules: schedulesGroup[] } =
           await (
             await fetch(`${BACKEND_URL}/api/schedules`, {
               method: "POST",
               body: JSON.stringify({
-                courses: selectedCourses,
+                courses: finalCourses,
                 options: {
                   sortUponFreeDays: true,
                 },
@@ -142,14 +102,14 @@ export default function Index() {
         } else {
           setEmpty(false);
         }
-        setComponentsLoading(false);
+        setLoading(false);
       } catch (error) {
         console.log(error);
-        setComponentsLoading(false);
+        setLoading(false);
         setError("Failed to load schedules");
       }
     } else {
-      alert("Add some Courses");
+      alert("Add some Courses & Make sure some professors are selected");
     }
   };
 
@@ -164,60 +124,33 @@ export default function Index() {
 
         {down ? (
           <>
-            <Description>
-              System update in progress. We'll be back shortly.
-            </Description>
+            <Description>Some Error occured, please check again.</Description>
           </>
         ) : (
           <>
             <Footer />
             <Description>A time saver courses scheduler</Description>
-
-            <Modes mode={mode} setMode={setMode} />
-            {mode !== "rooms" ? (
-              <>
-                <SearchBar
-                  courses={courses}
-                  setSelectedChoice={setSelectedChoice}
-                  selectedCourses={selectedCourses}
-                />
-                <AnimatePresence>
-                  {mode === "schedules" && (
-                    <>
-                      <SelectedCourses
-                        key={"selectedCourses"}
-                        selectedCourses={selectedCourses}
-                        setSelectedCourses={setSelectedCourses}
-                      />
-                    </>
-                  )}
-                </AnimatePresence>
-                {mode === "schedules" && (
-                  <>
-                    <SubmitButton
-                      schedules={schedules}
-                      layout={"position"}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      key={"generateButton"}
-                      // layout={"position"}
-                      onClick={fetchSchedules}
-                    >
-                      Generate Schedules
-                    </SubmitButton>
-
-                    {!componentsLoading ? (
-                      <Schedules schedules={schedules} empty={empty} />
-                    ) : (
-                      <Spinner />
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <>{!componentsLoading ? <Rooms rooms={rooms} /> : <Spinner />}</>
-            )}
+            <SearchBar
+              courses={courses}
+              setSelectedCourses={setSelectedCourses}
+              selectedCourses={selectedCourses}
+            />
+            {/* <LayoutGroup> */}
+            <SelectedCourses
+              key={"selectedCourses"}
+              selectedCourses={selectedCourses}
+              setSelectedCourses={setSelectedCourses}
+            />
+            <SubmitButton
+              schedules={schedules}
+              key={"generateButton"}
+              layout={"position"}
+              onClick={fetchSchedules}
+            >
+              Generate Schedules
+            </SubmitButton>
+            {/* </LayoutGroup> */}
+            <Schedules schedules={schedules} empty={empty} />
           </>
         )}
       </>
