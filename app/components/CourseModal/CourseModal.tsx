@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { X } from "feather-icons-react";
 import { clamp } from "@utils/clamp";
 import { DAYS, TIMES } from "@constants/slots";
+import { scheduleCourse } from "remix.env";
 interface props {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;

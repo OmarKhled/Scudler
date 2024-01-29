@@ -9,9 +9,18 @@ import SearchBar from "@components/SearchBar/SearchBar";
 import SelectedCourses from "@components/SelectedCourses/SelectedCourses";
 import { BACKEND_URL } from "@constants/endpoints";
 import { SPACINGS } from "@constants/spacing";
-import Loading from "@components/Loading/Loading";
+import Loading, { Spinner } from "@components/Loading/Loading";
 import ErrorModal from "@components/ErrorModal/ErrorModal";
 import Footer from "@components/Footer";
+import Modes from "@components/Modes";
+import {
+  course,
+  modes,
+  schedule,
+  scheduleCourse,
+  schedulesGroup,
+} from "remix.env";
+import Rooms from "@components/Rooms";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -22,9 +31,19 @@ export const meta: V2_MetaFunction = () => {
 
 export default function Index() {
   const [courses, setCourses] = useState<course[]>([]);
+  const [rooms, setRooms] = useState<
+    { map: scheduleCourse[][][]; name: string }[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [componentsLoading, setComponentsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [down, setDown] = useState<boolean>(false);
+
+  const [selectedCourses, setSelectedCourses] = useState<course[]>([]);
+  const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
+  const [empty, setEmpty] = useState<boolean>(false);
+  const [mode, setMode] = useState<modes>("schedules");
+  const [selectedChoice, setSelectedChoice] = useState<string>();
 
   useEffect(() => {
     (async function () {
@@ -43,16 +62,64 @@ export default function Index() {
     })();
   }, []);
 
-  const [selectedCourses, setSelectedCourses] = useState<course[]>([]);
-  const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
-  const [empty, setEmpty] = useState<boolean>(false);
+  useEffect(() => {
+    setComponentsLoading(true);
+    (async () => {
+      switch (mode) {
+        case "rooms":
+          try {
+            const { rooms } = await (
+              await fetch(`${BACKEND_URL}/api/rooms`, { method: "GET" })
+            ).json();
+            setRooms(rooms);
+            setComponentsLoading(false);
+          } catch (error) {
+            console.log(error);
+            setComponentsLoading(false);
+            setDown(true);
+          }
+          break;
+
+        default:
+          setComponentsLoading(false);
+          break;
+      }
+    })();
+  }, [mode]);
+
+  useEffect(() => {
+    console.log(selectedChoice);
+    if (selectedChoice) {
+      switch (mode) {
+        case "schedules":
+          if (
+            !selectedCourses
+              .map((course) => course.courseName)
+              .includes(selectedChoice)
+          ) {
+            const newCourse = courses.find(
+              (course) => course.courseName === selectedChoice
+            );
+
+            if (newCourse) {
+              setSelectedCourses((state: course[]) => [newCourse, ...state]);
+            }
+          }
+
+          break;
+        case "courses":
+          console.log("courses");
+        default:
+          break;
+      }
+    }
+  }, [selectedChoice]);
 
   const fetchSchedules = async () => {
     if (selectedCourses.length > 0) {
       try {
-        setLoading(true);
+        setComponentsLoading(true);
         const {
-          schedules,
           groupedSchedules,
         }: { schedules: schedule[]; groupedSchedules: schedulesGroup[] } =
           await (
@@ -75,10 +142,10 @@ export default function Index() {
         } else {
           setEmpty(false);
         }
-        setLoading(false);
+        setComponentsLoading(false);
       } catch (error) {
         console.log(error);
-        setLoading(false);
+        setComponentsLoading(false);
         setError("Failed to load schedules");
       }
     } else {
@@ -105,27 +172,52 @@ export default function Index() {
           <>
             <Footer />
             <Description>A time saver courses scheduler</Description>
-            <SearchBar
-              courses={courses}
-              setSelectedCourses={setSelectedCourses}
-              selectedCourses={selectedCourses}
-            />
-            <AnimatePresence>
-              <SelectedCourses
-                key={"selectedCourses"}
-                selectedCourses={selectedCourses}
-                setSelectedCourses={setSelectedCourses}
-              />
-              <SubmitButton
-                schedules={schedules}
-                key={"generateButton"}
-                layout={"position"}
-                onClick={fetchSchedules}
-              >
-                Generate Schedules
-              </SubmitButton>
-            </AnimatePresence>
-            <Schedules schedules={schedules} empty={empty} />
+
+            <Modes mode={mode} setMode={setMode} />
+            {mode !== "rooms" ? (
+              <>
+                <SearchBar
+                  courses={courses}
+                  setSelectedChoice={setSelectedChoice}
+                  selectedCourses={selectedCourses}
+                />
+                <AnimatePresence>
+                  {mode === "schedules" && (
+                    <>
+                      <SelectedCourses
+                        key={"selectedCourses"}
+                        selectedCourses={selectedCourses}
+                        setSelectedCourses={setSelectedCourses}
+                      />
+                    </>
+                  )}
+                </AnimatePresence>
+                {mode === "schedules" && (
+                  <>
+                    <SubmitButton
+                      schedules={schedules}
+                      layout={"position"}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      key={"generateButton"}
+                      // layout={"position"}
+                      onClick={fetchSchedules}
+                    >
+                      Generate Schedules
+                    </SubmitButton>
+
+                    {!componentsLoading ? (
+                      <Schedules schedules={schedules} empty={empty} />
+                    ) : (
+                      <Spinner />
+                    )}
+                  </>
+                )}
+              </>
+            ) : (
+              <>{!componentsLoading ? <Rooms rooms={rooms} /> : <Spinner />}</>
+            )}
           </>
         )}
       </>

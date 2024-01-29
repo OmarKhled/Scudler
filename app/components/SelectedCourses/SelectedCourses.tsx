@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { clamp } from "@utils/clamp";
 import { X } from "feather-icons-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { course } from "remix.env";
 
 interface props {
   selectedCourses: course[];

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { clamp } from "@utils/clamp";
 import * as React from "react";
 import styled, { keyframes } from "styled-components";
+import { SPACINGS } from "@constants/spacing";
 
 interface props {
   loading: boolean;
@@ -41,8 +42,10 @@ const Wrapper = styled(motion.div)`
 const spin = keyframes`
   to { -webkit-transform: rotate(360deg); }
 `;
-const Spinner = styled.div`
-  display: inline-block;
+export const Spinner = styled.div`
+  display: block;
+  margin: auto;
+  margin-top: ${SPACINGS.lg};
   width: ${clamp(40, 50)};
   height: ${clamp(40, 50)};
   border: 6px solid rgba(165, 183, 245, 0.3);

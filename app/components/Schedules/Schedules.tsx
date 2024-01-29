@@ -2,6 +2,7 @@ import CourseModal from "@components/CourseModal/CourseModal";
 import Schedule from "@components/Schedule";
 import { SPACINGS } from "@constants/spacing";
 import { useState } from "react";
+import { schedulesGroup } from "remix.env";
 import { styled } from "styled-components";
 
 interface props {

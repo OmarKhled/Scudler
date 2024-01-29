@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Dispatch, useRef, useState } from "react";
 import { Search } from "feather-icons-react";
 import {
   Combobox,
@@ -14,19 +14,19 @@ import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
 
 import { clamp } from "@utils/clamp";
 import { SPACINGS } from "@constants/spacing";
+import { course, modes } from "remix.env";
 
 function SearchBar({
   courses,
-  setSelectedCourses,
   selectedCourses,
+  setSelectedChoice,
 }: {
   courses: course[];
   selectedCourses: course[];
-  setSelectedCourses: React.Dispatch<React.SetStateAction<course[]>>;
+  setSelectedChoice: Dispatch<React.SetStateAction<string | undefined>>;
 }) {
   const controls = useAnimationControls();
   const [results, setResults] = useState<course[]>(courses);
-  const [query, setQuery] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,28 +45,23 @@ function SearchBar({
     );
   };
 
-  const addCourse = (courseName: string) => {
-    const newCourse = courses.find(
-      (course) => course.courseName === courseName
-    );
-    if (newCourse) {
-      setSelectedCourses((state: course[]) => [newCourse, ...state]);
-    }
+  const onSelect = (query: string) => {
+    console.log(query);
+    setSelectedChoice(query);
+
     if (inputRef.current != null) {
-      console.log("object");
       inputRef.current.value = "";
     }
-    // setQuery("");
     setTimeout(() => {
       if (inputRef.current) {
         inputRef.current.value = "";
       }
     }, 5);
-    // }
+    return query;
   };
 
   return (
-    <Wrapper aria-labelledby="Courses Search Field" onSelect={addCourse}>
+    <Wrapper aria-labelledby="Search Field" onSelect={onSelect}>
       <IconLabel
         animate={controls}
         htmlFor="courses-search"
@@ -96,7 +91,7 @@ function SearchBar({
         autoComplete="off"
         selectOnClick
         id="courses-search"
-        placeholder="Add a course"
+        placeholder="Search a Course"
         ref={inputRef}
         // value={query}
       />
@@ -113,10 +108,10 @@ function SearchBar({
               {results.map((result) => (
                 <Option
                   key={result.courseName}
-                  initial={{ opacity: 0 }}
-                  exit={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  forwardedAs={motion.div}
+                  // initial={{ opacity: 0 }}
+                  // exit={{ opacity: 0 }}
+                  // animate={{ opacity: 1 }}
+                  // forwardedAs={motion.div}
                   value={result.courseName}
                 />
               ))}

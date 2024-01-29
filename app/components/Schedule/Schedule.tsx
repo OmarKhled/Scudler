@@ -1,6 +1,7 @@
 import { DAYS, TIMES as TIMESLOTS } from "@constants/slots";
 import { SPACINGS } from "@constants/spacing";
 import { clamp } from "@utils/clamp";
+import { schedulesGroup, scheduleCourse } from "remix.env";
 import { styled } from "styled-components";
 
 interface props {
