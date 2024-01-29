@@ -21,8 +21,8 @@ function SearchBar({
   selectedCourses,
 }: {
   courses: course[];
-  selectedCourses: course[];
-  setSelectedCourses: React.Dispatch<React.SetStateAction<course[]>>;
+  selectedCourses: courseSelection[];
+  setSelectedCourses: React.Dispatch<React.SetStateAction<courseSelection[]>>;
 }) {
   const controls = useAnimationControls();
   const [results, setResults] = useState<course[]>(courses);
@@ -36,7 +36,7 @@ function SearchBar({
       courses.filter(
         (course) =>
           !selectedCourses
-            .map((c) => c.courseName)
+            .map((c) => c.course.courseName)
             .includes(course.courseName) &&
           course.courseName
             .toLocaleLowerCase()
@@ -50,7 +50,22 @@ function SearchBar({
       (course) => course.courseName === courseName
     );
     if (newCourse) {
-      setSelectedCourses((state: course[]) => [newCourse, ...state]);
+      const courseProfessors = new Set<string>();
+      newCourse.body.forEach((section) => {
+        if (section && section.lecture) {
+          courseProfessors.add(section.lecture.professor);
+        }
+      });
+      setSelectedCourses((state) => [
+        {
+          course: newCourse,
+          professors: Array.from(courseProfessors).map((professor) => ({
+            name: professor,
+            selected: true,
+          })),
+        },
+        ...state,
+      ]);
     }
     if (inputRef.current != null) {
       console.log("object");

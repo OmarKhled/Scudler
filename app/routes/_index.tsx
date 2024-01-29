@@ -1,5 +1,5 @@
 import { json, type V2_MetaFunction } from "@remix-run/node";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
@@ -26,6 +26,10 @@ export default function Index() {
   const [error, setError] = useState<string>();
   const [down, setDown] = useState<boolean>(false);
 
+  const [selectedCourses, setSelectedCourses] = useState<courseSelection[]>([]);
+  const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
+  const [empty, setEmpty] = useState<boolean>(false);
+
   useEffect(() => {
     (async function () {
       try {
@@ -43,9 +47,9 @@ export default function Index() {
     })();
   }, []);
 
-  const [selectedCourses, setSelectedCourses] = useState<course[]>([]);
-  const [schedules, setSchedules] = useState<schedulesGroup[]>([]);
-  const [empty, setEmpty] = useState<boolean>(false);
+  useEffect(() => {
+    console.log({ selectedCourses });
+  }, [selectedCourses]);
 
   const fetchSchedules = async () => {
     if (selectedCourses.length > 0) {
@@ -59,7 +63,7 @@ export default function Index() {
             await fetch(`${BACKEND_URL}/api/schedules`, {
               method: "POST",
               body: JSON.stringify({
-                courses: selectedCourses,
+                courses: selectedCourses.map((course) => course.course),
                 options: {
                   sortUponFreeDays: true,
                 },
@@ -110,21 +114,21 @@ export default function Index() {
               setSelectedCourses={setSelectedCourses}
               selectedCourses={selectedCourses}
             />
-            <AnimatePresence>
-              <SelectedCourses
-                key={"selectedCourses"}
-                selectedCourses={selectedCourses}
-                setSelectedCourses={setSelectedCourses}
-              />
-              <SubmitButton
-                schedules={schedules}
-                key={"generateButton"}
-                layout={"position"}
-                onClick={fetchSchedules}
-              >
-                Generate Schedules
-              </SubmitButton>
-            </AnimatePresence>
+            {/* <LayoutGroup> */}
+            <SelectedCourses
+              key={"selectedCourses"}
+              selectedCourses={selectedCourses}
+              setSelectedCourses={setSelectedCourses}
+            />
+            <SubmitButton
+              schedules={schedules}
+              key={"generateButton"}
+              layout={"position"}
+              onClick={fetchSchedules}
+            >
+              Generate Schedules
+            </SubmitButton>
+            {/* </LayoutGroup> */}
             <Schedules schedules={schedules} empty={empty} />
           </>
         )}

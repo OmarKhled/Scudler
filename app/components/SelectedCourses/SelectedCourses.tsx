@@ -2,19 +2,42 @@ import { SPACINGS } from "@constants/spacing";
 import * as React from "react";
 import styled from "styled-components";
 import { clamp } from "@utils/clamp";
-import { X } from "feather-icons-react";
+import { Trash2, ChevronDown } from "feather-icons-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import SelectedCourse from "@components/SelectedCourse";
 
 interface props {
-  selectedCourses: course[];
-  setSelectedCourses: React.Dispatch<React.SetStateAction<course[]>>;
+  selectedCourses: courseSelection[];
+  setSelectedCourses: React.Dispatch<React.SetStateAction<courseSelection[]>>;
 }
 
 function SelectedCourses({ selectedCourses, setSelectedCourses }: props) {
   const unselectCourse = (courseName: string) => {
     setSelectedCourses((oldState) =>
-      oldState.filter((course) => course.courseName !== courseName)
+      oldState.filter((course) => course.course.courseName !== courseName)
     );
+  };
+
+  const toggleProfessor = (courseName: string, professorName: string) => {
+    const newSelectedCourses = selectedCourses.map((course) => {
+      if (course.course.courseName != courseName) {
+        return course;
+      } else {
+        return {
+          ...course,
+          professors: course.professors.map((professor) => ({
+            name: professor.name,
+            selected:
+              professor.name == professorName
+                ? !professor.selected
+                : professor.selected,
+          })),
+        };
+      }
+    });
+
+    setSelectedCourses(newSelectedCourses);
   };
   return (
     <Wrapper layout>
@@ -22,21 +45,10 @@ function SelectedCourses({ selectedCourses, setSelectedCourses }: props) {
         {/* <AnimatePresence> */}
         {selectedCourses.map((course) => (
           <SelectedCourse
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            key={course.courseName + " Course Selection"}
-          >
-            <p>{course.courseName}</p>
-            <RemoveButton
-              whileHover={{ rotateZ: [0, -8, 0, 8] }}
-              transition={{ type: "spring", damping: 2 }}
-              onClick={() => unselectCourse(course.courseName)}
-            >
-              <X />
-            </RemoveButton>
-          </SelectedCourse>
+            toggleProfessor={toggleProfessor}
+            unselectCourse={unselectCourse}
+            course={course}
+          />
         ))}
         {/* </AnimatePresence> */}
       </TableWrapper>
@@ -54,19 +66,6 @@ const Wrapper = styled(motion.div)`
 const TableWrapper = styled.div`
   width: 100%;
   margin-top: ${SPACINGS.sm};
-`;
-const SelectedCourse = styled(motion.div)`
-  display: flex;
-  justify-content: space-between;
-  padding: ${SPACINGS.rg} ${SPACINGS.sm};
-  border-bottom: 3px solid #ebecf5;
-`;
-const RemoveButton = styled(motion.button)`
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
 `;
 
 export default SelectedCourses;
