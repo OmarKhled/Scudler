@@ -20,7 +20,6 @@ function SelectedCourse({ toggleProfessor, course, unselectCourse }: props) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      key={course.course.courseName + " Course Selection"}
       layout="position"
     >
       <Header>
@@ -79,12 +78,14 @@ function SelectedCourse({ toggleProfessor, course, unselectCourse }: props) {
           >
             <Porfessors>
               {course.professors.map((professor) => (
-                <Porfessor>
+                <Porfessor
+                  key={course.course.courseName + " " + professor.name}
+                >
                   <ProfessorStatus
                     type="checkbox"
                     name={professor.name}
                     checked={professor.selected}
-                    onClick={() =>
+                    onChange={() =>
                       toggleProfessor(course.course.courseName, professor.name)
                     }
                   />

@@ -51,7 +51,7 @@ function CourseModal({ showModal, setShowModal, course }: props) {
               ))}
               <Head>Schedule</Head>
               {course.slots.map((slot) => (
-                <SlotInfo>
+                <SlotInfo key={DAYS[slot.day] + slot.builduing}>
                   <SlotDay>
                     <span>
                       {TIMES[slot.slot[0]]}

@@ -48,6 +48,7 @@ function SelectedCourses({ selectedCourses, setSelectedCourses }: props) {
             toggleProfessor={toggleProfessor}
             unselectCourse={unselectCourse}
             course={course}
+            key={course.course.courseName + " Course Selection"}
           />
         ))}
         {/* </AnimatePresence> */}

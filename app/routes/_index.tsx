@@ -1,5 +1,4 @@
 import { json, type V2_MetaFunction } from "@remix-run/node";
-import { AnimatePresence, LayoutGroup } from "framer-motion";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
@@ -47,12 +46,36 @@ export default function Index() {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log({ selectedCourses });
-  }, [selectedCourses]);
+  // useEffect(() => {
+  //   courses.forEach((course) => {
+  //     const codes = new Set();
+  //     course.body.forEach((section) => {
+  //       codes.add(section.lecture.professor);
+  //     });
+  //     if (codes.size > 1) {
+  //       console.log(course.courseName, codes);
+  //     }
+  //   });
+
+  //   console.log({ selectedCourses });
+  // }, [courses]);
 
   const fetchSchedules = async () => {
-    if (selectedCourses.length > 0) {
+    const finalCourses = selectedCourses
+      .map((course) => {
+        return {
+          ...course.course,
+          body: course.course.body.filter((section) =>
+            course.professors
+              .filter((professor) => professor.selected)
+              .map((professor) => professor.name)
+              .includes(section.lecture.professor)
+          ),
+        };
+      })
+      .filter((course) => course.body.length > 0);
+
+    if (finalCourses.length > 0) {
       try {
         setLoading(true);
         const {
@@ -63,7 +86,7 @@ export default function Index() {
             await fetch(`${BACKEND_URL}/api/schedules`, {
               method: "POST",
               body: JSON.stringify({
-                courses: selectedCourses.map((course) => course.course),
+                courses: finalCourses,
                 options: {
                   sortUponFreeDays: true,
                 },
@@ -86,7 +109,7 @@ export default function Index() {
         setError("Failed to load schedules");
       }
     } else {
-      alert("Add some Courses");
+      alert("Add some Courses & Make sure some professors are selected");
     }
   };
 

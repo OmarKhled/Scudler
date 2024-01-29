@@ -48,6 +48,12 @@ function Schedules({ schedules, empty }: props) {
           />
           <NoPossibleCombinationsMessage>
             Couldn't Produce Schedules for these inputs
+            <br />
+            <small>
+              If you believe this isn't correct, please send me a mail on{" "}
+              <a href="mailto:me@omarkhled.me">me@omarkhled.me</a> or text me on
+              on <a href="tel:+201068405513">01068405513</a>
+            </small>
           </NoPossibleCombinationsMessage>
         </>
       )}
