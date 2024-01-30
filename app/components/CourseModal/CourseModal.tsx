@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { X } from "feather-icons-react";
 import { clamp } from "@utils/clamp";
 import { DAYS, TIMES } from "@constants/slots";
+import _ from "lodash";
 // import { scheduleCourse } from "remix.env";
 interface props {
   showModal: boolean;
@@ -44,7 +45,8 @@ function CourseModal({ showModal, setShowModal, course }: props) {
               </Header>
               <Description>
                 {" "}
-                Subtype: {course.subtype} Section: {course.prefix}
+                Subtype: {_.capitalize(course.subtype)} | Section:{" "}
+                {course.prefix}
               </Description>
               <Head>Instructors</Head>
               {course.instructor.split(",").map((instructor) => (
