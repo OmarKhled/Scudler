@@ -59,7 +59,7 @@ export default function App() {
         />
         <meta
           property="og:image"
-          content="https://scudler.fly.dev/images/og.png"
+          content="https://scudler.omarkhled.me/images/og.png"
         />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
